@@ -21,8 +21,7 @@ namespace SquadGameLib.units
         public Squad Assigned { get; private set; }
 
         //TODO: ABility, Status effect
-
-
+        public delegate void DoAction(Unit unit);
 
         public Unit()
         {
@@ -39,7 +38,7 @@ namespace SquadGameLib.units
 
 
 
-        public void Attack(ICombattable enemy)
+        public void Attack(Unit enemy)
         {
             throw new NotImplementedException();
         }
@@ -54,7 +53,7 @@ namespace SquadGameLib.units
             throw new NotImplementedException();
         }
 
-        public void SpecialAttack(ICombattable enemy)
+        public void SpecialAttack(Unit enemy)
         {
             throw new NotImplementedException();
         }
@@ -62,6 +61,8 @@ namespace SquadGameLib.units
         public void TacticalAbility()
         {
             throw new NotImplementedException();
+
         }
     }
+
 }

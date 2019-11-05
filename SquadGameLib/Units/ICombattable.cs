@@ -8,8 +8,8 @@ namespace SquadGameLib.units
 {
     public interface ICombattable
     {
-         void Attack(ICombattable enemy);
-         void SpecialAttack(ICombattable enemy);
+         void Attack(Unit enemy);
+         void SpecialAttack(Unit enemy);
          void TacticalAbility();
          void Down();
          void Die();
