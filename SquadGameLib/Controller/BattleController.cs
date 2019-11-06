@@ -16,7 +16,7 @@ namespace SquadGameLib.Controller
         public int Round { get; private set; }
         public bool Ended { get; private set; }
 
-        public delegate void DoAction(Unit unit);
+        public delegate void DoAction();
 
         public BattleController(Squad playerSquad, Squad enemySquad)
         {
@@ -52,7 +52,6 @@ namespace SquadGameLib.Controller
             playerWon = PlayerSquad.Count == 0 ? false : true;
             return playerWon;
         }
-        
 
         
         public void ExecuteRound(BattleOrder CombatActions)
@@ -67,10 +66,11 @@ namespace SquadGameLib.Controller
                 }
 
                 //get & execute action
-
                 
-                DoAction turnAction = new DoAction(u.Attack);
-                turnAction?.Invoke();
+                DoAction turnAction = DetermineAction(u);
+                turnAction.Invoke();
+
+
                 if (unitSpeedChanged)
                 {
                     CombatActions.OrderBy(c => c.Speed);
@@ -80,7 +80,10 @@ namespace SquadGameLib.Controller
 
         public DoAction DetermineAction(Unit unit)
         {
-            return unit.Attack;
+
+
+            // default option for test 
+            return new DoAction(unit.Attack);
         }
 
 
