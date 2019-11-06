@@ -107,8 +107,9 @@ namespace SquadGameLib.Controller
               
             }
 
-            target = new Trooper();
+
             // default option for test 
+            target = new Trooper();
             return new DoAction(unit.Attack);
         }
 
@@ -122,7 +123,7 @@ namespace SquadGameLib.Controller
                 case Strategy.Offensive:
                     int unitIndex = PlayerSquad.IndexOf(unit);
                     target = AiSquad[unitIndex];
-
+                    // als leeg:
 
                     break;
                 case Strategy.StrongestFirst:
