@@ -1,10 +1,10 @@
 ﻿
+using SquadGameLib.Enums;
 using SquadGameLib.units;
-using System;
+using SquadGameLib.Units.Army;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace SquadGameLib.Controller
 {
@@ -16,7 +16,7 @@ namespace SquadGameLib.Controller
         public int Round { get; private set; }
         public bool Ended { get; private set; }
 
-        public delegate void DoAction();
+        public delegate void DoAction(Unit target);
 
         public BattleController(Squad playerSquad, Squad enemySquad)
         {
@@ -66,9 +66,10 @@ namespace SquadGameLib.Controller
                 }
 
                 //get & execute action
-                
-                DoAction turnAction = DetermineAction(u);
-                turnAction.Invoke();
+                Unit target;
+                DoAction turnAction = DetermineAction(u, out target);
+
+                turnAction.Invoke(target);
 
 
                 if (unitSpeedChanged)
@@ -78,15 +79,63 @@ namespace SquadGameLib.Controller
             }
         }
 
-        public DoAction DetermineAction(Unit unit)
+        public DoAction DetermineAction(Unit unit, out Unit target)
         {
+            DoAction result;
+            switch (unit.Assigned.Strategy)
+            {
+                case Strategy.Offensive:
+                    result = new DoAction(unit.Attack);
+                    target = GetTarget(unit, Strategy.Offensive);
+                    return result;
+                case Strategy.StrongestFirst:
+                    result = new DoAction(unit.Attack);
+                    target = GetTarget(unit, Strategy.StrongestFirst);
+                    return result;
+                case Strategy.WeakestFirst:
+                    result = new DoAction(unit.Attack);
+                    target = GetTarget(unit, Strategy.WeakestFirst);
+                    return result;
+                case Strategy.Survival:
+                    result = new DoAction(unit.Attack);
+                    target = GetTarget(unit, Strategy.Survival);
+                    return result;
+                case Strategy.Tactical:
+                    result = new DoAction(unit.TacticalAbility);
+                    target = unit;
+                    return result;
+              
+            }
 
-
+            target = new Trooper();
             // default option for test 
             return new DoAction(unit.Attack);
         }
 
 
+        public Unit GetTarget(Unit unit, Strategy strategy)
+        {
+            Unit target = null;
 
+            switch (strategy)
+            {
+                case Strategy.Offensive:
+                    int unitIndex = PlayerSquad.IndexOf(unit);
+                    target = AiSquad[unitIndex];
+
+
+                    break;
+                case Strategy.StrongestFirst:
+                    break;
+                case Strategy.WeakestFirst:
+                    break;
+                case Strategy.Survival:
+                    break;
+            }
+
+       
+
+            return target;
+        }
     }
 }

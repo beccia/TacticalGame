@@ -38,7 +38,7 @@ namespace SquadGameLib.units
 
 
 
-        public void Attack()
+        public void Attack(Unit unit)
         {
             throw new NotImplementedException();
         }
@@ -53,12 +53,12 @@ namespace SquadGameLib.units
             throw new NotImplementedException();
         }
 
-        public void SpecialAttack()
+        public void SpecialAttack(Unit unit)
         {
             throw new NotImplementedException();
         }
 
-        public void TacticalAbility()
+        public void TacticalAbility(Unit unit)
         {
             throw new NotImplementedException();
 
