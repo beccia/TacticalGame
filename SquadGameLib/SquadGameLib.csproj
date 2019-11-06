@@ -41,7 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BattleStack.cs" />
+    <Compile Include="BattleOrder.cs" />
     <Compile Include="Controller\BattleController.cs" />
     <Compile Include="Enums\Faction.cs" />
     <Compile Include="Enums\Strategy.cs" />
