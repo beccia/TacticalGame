@@ -12,7 +12,7 @@ namespace SquadGameLib.Controller
     {
         public Squad PlayerSquad { get; private set; }
         public Squad AiSquad { get; private set; }
-        public BattleOrder CombatActions { get; private set; }
+        public BattleOrder BattleOrder { get; private set; }
         public int Round { get; private set; }
         public bool Ended { get; private set; }
 
@@ -22,17 +22,9 @@ namespace SquadGameLib.Controller
         {
             this.PlayerSquad = playerSquad;
             this.AiSquad = enemySquad;
-            this.CombatActions = new BattleOrder();
+            this.BattleOrder = new BattleOrder();
             this.Round = 1;
             this.Ended = false;
-        }
-
-        public BattleOrder SetActions()
-        {
-            List<Unit> allUnits = new List<Unit>(PlayerSquad);
-            allUnits.AddRange(AiSquad);
-            BattleOrder result = new BattleOrder(allUnits);
-            return result;
         }
 
         public bool RunBattle()
@@ -41,8 +33,8 @@ namespace SquadGameLib.Controller
 
             do
             {
-                CombatActions = SetActions();
-                ExecuteRound(CombatActions);
+                BattleOrder = new BattleOrder(PlayerSquad, AiSquad);
+                ExecuteRound(BattleOrder);
                 Round++;
                 if (PlayerSquad.Count == 0 || AiSquad.Count == 0)
                 {

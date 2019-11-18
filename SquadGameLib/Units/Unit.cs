@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace SquadGameLib.units
 {
-    public abstract class Unit : ICombattable
+    public abstract class Unit
     {
         public const int BaseStats = 100;
+
+        public string Name { get; set; }
 
         public int MaxHp { get; private set; }
         public int Hp { get; private set; }
@@ -21,13 +23,14 @@ namespace SquadGameLib.units
 
         public Squad Assigned { get; private set; }
 
-        public IStatusEffect StatusEffect { get; private set; }
+        public StatusEffects a { get; private set; }
 
         //TODO: ABility, Status effect
         
 
         public Unit()
         {
+            this.Name = "nameless";
             this.MaxHp = BaseStats;
             this.Hp = MaxHp;
             this.AttackPower = BaseStats;
@@ -35,6 +38,8 @@ namespace SquadGameLib.units
             this.Aim = BaseStats;
             this.Evasion = BaseStats / 2;
             this.Speed = BaseStats;
+            this.Assigned = null;
+            this.StatusEffects = new List<IStatusEffect>();
         }
 
 
@@ -65,6 +70,17 @@ namespace SquadGameLib.units
         {
             throw new NotImplementedException();
 
+        }
+
+        public void AddStatusEffect(IStatusEffect se)
+        {
+
+        }
+
+        public void AssignToSquad(Squad squad)
+        {
+            squad.Add(this);
+            this.Assigned = squad;
         }
     }
 

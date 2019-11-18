@@ -14,6 +14,14 @@ namespace SquadGameLib
 
         public Strategy Strategy { get; private set; }
 
+        public bool isDefeated()
+        {
+            foreach (Unit u in this)
+            {
+                if (u.StatusEffects.UnitIncapacitated())
+            }
+        }
+
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -21,6 +29,5 @@ namespace SquadGameLib
             return sb.ToString();
 
         }
-
     }
 }
