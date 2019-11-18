@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SquadGameLib.StatusEffects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,8 @@ namespace SquadGameLib.units
         public int Speed { get; private set; }
 
         public Squad Assigned { get; private set; }
+
+        public IStatusEffect StatusEffect { get; private set; }
 
         //TODO: ABility, Status effect
         
