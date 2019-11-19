@@ -8,34 +8,34 @@ using System.Threading.Tasks;
 
 namespace SquadGameLib.Factory
 {
-    public class AlienSoldierFactory : ISoldierFactory<ICombattable>
+    public class AlienSoldierFactory : ISoldierFactory<Unit>
     {
-        public ICombattable Create()
+        public Unit Create()
         {
             return new Grunt();
         }
 
-        public ICombattable CreateBasicSoldier()
+        public Unit CreateBasicSoldier()
         {
             return new Grunt();
         }
 
-        public ICombattable CreateHeavySoldier()
+        public Unit CreateHeavySoldier()
         {
             return new Annihilator();
         }
 
-        public ICombattable CreateMedicSoldier()
+        public Unit CreateMedicSoldier()
         {
             return new Shaman();
         }
 
-        public ICombattable CreateScout()
+        public Unit CreateScout()
         {
             return new Striker();
         }
 
-        public ICombattable CreateTechSoldier()
+        public Unit CreateTechSoldier()
         {
             return new BattleLord();
         }

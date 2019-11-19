@@ -23,8 +23,7 @@ namespace SquadGameLib.units
 
         public Squad Assigned { get; private set; }
 
-        public StatusEffects a { get; private set; }
-
+        public Status StatusEffects { get; private set; }
         //TODO: ABility, Status effect
         
 
@@ -39,7 +38,7 @@ namespace SquadGameLib.units
             this.Evasion = BaseStats / 2;
             this.Speed = BaseStats;
             this.Assigned = null;
-            this.StatusEffects = new List<IStatusEffect>();
+            this.StatusEffects = new Status();
         }
 
 
@@ -48,6 +47,7 @@ namespace SquadGameLib.units
 
         public void Attack(Unit unit)
         {
+            // if hit - dodge * modifyer -> hit, damage = dpower - defense * modifyer 
             throw new NotImplementedException();
         }
 
@@ -72,9 +72,18 @@ namespace SquadGameLib.units
 
         }
 
-        public void AddStatusEffect(IStatusEffect se)
+        public void AddStatusEffect(IStatusEffect statusEffect)
         {
 
+        }
+
+        public bool IsIncapacitated()
+        {
+            if (this.StatusEffects.OfType<Dead>().Any() || this.StatusEffects.OfType<Down>().Any())
+            {
+                return true;
+            }
+            else return false;
         }
 
         public void AssignToSquad(Squad squad)

@@ -36,12 +36,12 @@ namespace SquadGameLib.Controller
                 BattleOrder = new BattleOrder(PlayerSquad, AiSquad);
                 ExecuteRound(BattleOrder);
                 Round++;
-                if (PlayerSquad.Count == 0 || AiSquad.Count == 0)
+                if (PlayerSquad.isDefeated() || AiSquad.isDefeated())
                 {
                     Ended = true;
                 }
             } while (!Ended);
-            playerWon = PlayerSquad.Count == 0 ? false : true;
+            playerWon = PlayerSquad.isDefeated() ? false : true;
             return playerWon;
         }
 
@@ -52,7 +52,7 @@ namespace SquadGameLib.Controller
 
             foreach (Unit u in CombatActions)
             {
-                if (u.Hp <= 0)
+                if (u.IsIncapacitated())
                 {
                     continue;
                 }
@@ -66,7 +66,7 @@ namespace SquadGameLib.Controller
 
                 if (unitSpeedChanged)
                 {
-                    CombatActions.OrderBy(c => c.Speed);
+                    CombatActions.SortbySpeed();
                 }
             }
         }
@@ -108,13 +108,20 @@ namespace SquadGameLib.Controller
 
         public Unit GetTarget(Unit unit, Strategy strategy)
         {
+            // select possible tagets 
+            Squad enemySquad = AiSquad;
+            if (unit.Assigned != PlayerSquad)
+            {
+                enemySquad = PlayerSquad;
+            }
+            Squad targettable = enemySquad.GetViableTargets();
             Unit target = null;
 
             switch (strategy)
             {
                 case Strategy.Offensive:
-                    int unitIndex = PlayerSquad.IndexOf(unit);
-                    target = AiSquad[unitIndex];
+                    int unitIndex = unit.Assigned.IndexOf(unit);
+                    target = targettable[unitIndex];
                     // als leeg:
 
                     break;

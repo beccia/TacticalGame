@@ -8,34 +8,34 @@ using System.Threading.Tasks;
 
 namespace SquadGameLib.Factory
 {
-    public class EarthArmySoldierFactory : ISoldierFactory<ICombattable>
+    public class EarthArmySoldierFactory : ISoldierFactory<Unit>
     {
 
-        public ICombattable Create() {
+        public Unit Create() {
             return new Trooper();
         }
 
-        public ICombattable CreateBasicSoldier()
+        public Unit CreateBasicSoldier()
         {
             throw new NotImplementedException();
         }
 
-        public ICombattable CreateHeavySoldier()
+        public Unit CreateHeavySoldier()
         {
             throw new NotImplementedException();
         }
 
-        public ICombattable CreateMedicSoldier()
+        public Unit CreateMedicSoldier()
         {
             throw new NotImplementedException();
         }
 
-        public ICombattable CreateScout()
+        public Unit CreateScout()
         {
             throw new NotImplementedException();
         }
 
-        public ICombattable CreateTechSoldier()
+        public Unit CreateTechSoldier()
         {
             throw new NotImplementedException();
         }

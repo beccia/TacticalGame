@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 
 namespace SquadGameLib
 {
-    public interface ISoldierFactory<ICombattable>
+    public interface ISoldierFactory<Unit>
     {
 
 
-        ICombattable Create();
-        ICombattable CreateBasicSoldier();
-        ICombattable CreateHeavySoldier();
-        ICombattable CreateTechSoldier();
-        ICombattable CreateScout();
-        ICombattable CreateMedicSoldier();
+        Unit Create();
+        Unit CreateBasicSoldier();
+        Unit CreateHeavySoldier();
+        Unit CreateTechSoldier();
+        Unit CreateScout();
+        Unit CreateMedicSoldier();
 
     }
 }

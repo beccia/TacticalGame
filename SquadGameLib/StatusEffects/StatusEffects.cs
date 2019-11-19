@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace SquadGameLib.StatusEffects
 {
-    public class StatusEffects : List<IStatusEffect>
+    public class Status : List<IStatusEffect>
     {
 
-        public StatusEffects() {
+        public Status() {
         }
 
         public bool UnitIncapacitated()

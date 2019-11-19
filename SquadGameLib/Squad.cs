@@ -14,12 +14,27 @@ namespace SquadGameLib
 
         public Strategy Strategy { get; private set; }
 
+
+
         public bool isDefeated()
         {
+            bool result;
+            int combatants = 0;
             foreach (Unit u in this)
             {
-                if (u.StatusEffects.UnitIncapacitated())
+                if (!u.StatusEffects.UnitIncapacitated())
+                {
+                    combatants++;
+                }
             }
+            result = (combatants > 0)?  false : true;
+            return result;
+        }
+
+        public Squad GetViableTargets()
+        {
+            var result = this.Where(unit => !unit.IsIncapacitated());
+            return (Squad) result;
         }
 
         public override string ToString()

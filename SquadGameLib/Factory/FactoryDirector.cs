@@ -10,14 +10,14 @@ namespace SquadGameLib.Factory
     public class FactoryDirector
     {
         private static FactoryDirector _FactoryDirector;
-        public ISoldierFactory<ICombattable> Factory { get;  private set; }
+        public ISoldierFactory<Unit> Factory { get;  private set; }
 
         private FactoryDirector()
         {
 
         }
 
-        public ISoldierFactory<ICombattable> CreateFactory(ISoldierFactory<ICombattable> factory)
+        public ISoldierFactory<Unit> CreateFactory(ISoldierFactory<Unit> factory)
         {
             this.Factory = factory;
             return factory;
