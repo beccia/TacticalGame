@@ -2,6 +2,7 @@
 using SquadGameLib.Enums;
 using SquadGameLib.units;
 using SquadGameLib.Units.Army;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -34,6 +35,7 @@ namespace SquadGameLib.Controller
             do
             {
                 BattleOrder = new BattleOrder(PlayerSquad, AiSquad);
+                Console.WriteLine("Starting round " + Round);
                 ExecuteRound(BattleOrder);
                 Round++;
                 if (PlayerSquad.isDefeated() || AiSquad.isDefeated())
@@ -56,7 +58,11 @@ namespace SquadGameLib.Controller
                 {
                     continue;
                 }
-
+                if (PlayerSquad.isDefeated() || AiSquad.isDefeated())
+                {
+                    Console.WriteLine("No targets left.");
+                    return;
+                }
                 //get & execute action
                 Unit target;
                 DoAction turnAction = DetermineAction(u, out target);
@@ -69,6 +75,12 @@ namespace SquadGameLib.Controller
                     CombatActions.SortbySpeed();
                 }
             }
+            Console.WriteLine("Ended round " + Round + ".");
+            Console.WriteLine("-------------------------------------");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadKey();
+
+
         }
 
         public DoAction DetermineAction(Unit unit, out Unit target)
@@ -96,13 +108,10 @@ namespace SquadGameLib.Controller
                     result = new DoAction(unit.TacticalAbility);
                     target = unit;
                     return result;
-              
+                default:
+                    target = null;
+                    return new DoAction(unit.Attack);
             }
-
-
-            // default option for test 
-            target = new Trooper();
-            return new DoAction(unit.Attack);
         }
 
 
@@ -113,7 +122,7 @@ namespace SquadGameLib.Controller
             {
                 enemySquad = PlayerSquad;
             }
-            Squad targettable = enemySquad.GetViableTargets();
+            List<Unit> targettable = enemySquad.GetViableTargets();
             Unit target = null;
 
             switch (strategy)

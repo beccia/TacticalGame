@@ -31,7 +31,7 @@ namespace SquadGameLib
             for (int i = 0; i < PlayerSquadSize; i++)
             {
                 Unit u = (Unit)FactoryDirector.CreateFactory(new EarthArmySoldierFactory()).Create();
-                u.Name = "Trooper nr " + i;
+                u.Name = "Trooper nr " + (i + 1);
                 u.AssignToSquad(player.PlayerSquad);
             }
         }
@@ -43,7 +43,7 @@ namespace SquadGameLib
             for (int i = 0; i < PlayerSquadSize; i++)
             {
                 Unit u = (Unit)FactoryDirector.CreateFactory(new AlienSoldierFactory()).Create();
-                u.Name = "Grunt nr " + i;
+                u.Name = "Grunt nr " + (i + 1);
                 u.AssignToSquad(enemySquad);
             }
             return enemySquad;

@@ -31,10 +31,11 @@ namespace SquadGameLib
             return result;
         }
 
-        public Squad GetViableTargets()
+        public List<Unit> GetViableTargets()
         {
-            var result = this.Where(unit => !unit.IsIncapacitated());
-            return (Squad) result;
+            List<Unit> list = this.ToList<Unit>();
+            var result = list.Where(unit => !unit.IsIncapacitated());
+            return result.ToList<Unit>();
         }
 
         public override string ToString()

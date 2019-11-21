@@ -25,7 +25,7 @@ namespace SquadGameLib.units
 
         public Status StatusEffects { get; private set; }
         //TODO: ABility, Status effect
-        
+
 
         public Unit()
         {
@@ -33,7 +33,7 @@ namespace SquadGameLib.units
             this.MaxHp = BaseStats;
             this.Hp = MaxHp;
             this.AttackPower = BaseStats;
-            this.Defence = BaseStats;
+            this.Defence = (int)(BaseStats * 0.7);
             this.Aim = BaseStats;
             this.Evasion = BaseStats / 2;
             this.Speed = BaseStats;
@@ -45,18 +45,44 @@ namespace SquadGameLib.units
 
 
 
-        public void Attack(Unit unit)
+        public void Attack(Unit target)
         {
-            // if hit - dodge * modifyer -> hit, damage = dpower - defense * modifyer 
+            Console.WriteLine(this.Name + " attacks "+ target.Name);
+            if (!TargetHit(this.Aim, target.Evasion))
+            {
+                Console.WriteLine("The attack missed " + target.Name + ".");
+                Console.WriteLine();
+            }
+            else
+            {
+                Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
+                double modifyer = rd.Next(75, 120)/100.00;
+                int statsDamage = this.AttackPower - target.Defence;
+                int totalDamage = (int)(statsDamage * modifyer);
+                Console.WriteLine("Hit target for " + totalDamage + " damage.");
+                Console.WriteLine();
+                target.Hp -= totalDamage;
+            }
+            if (target.Hp <= 0) //nog toevoegen: down
+            {
+                target.Hp = 0;
+                target.Die();
+            }
 
+        }
 
-
-            throw new NotImplementedException();
+        public bool TargetHit(int aim, int evasion)
+        {
+            Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
+            int rgn = rd.Next(0, 100);
+            int statsResult = aim - (int)(evasion * 0.6);
+            return statsResult > rgn ? true : false;
         }
 
         public void Die()
         {
             this.AddStatusEffect(new Dead(this));
+            Console.WriteLine(this.Name + " has died");
         }
 
         public void Down()
