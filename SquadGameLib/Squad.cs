@@ -12,7 +12,7 @@ namespace SquadGameLib
     {
         public String Name { get; private set; }
 
-        public Strategy Strategy { get; private set; }
+        public Strategy Strategy { get; set; }
 
 
 

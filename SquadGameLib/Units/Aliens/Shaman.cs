@@ -9,12 +9,18 @@ namespace SquadGameLib.Units.Aliens
 {
     public class Shaman : Unit, IHealer
     {
+        public int MedSkills { get; set; }
         public Shaman() : base()
         {
-
+            this.MedSkills = 35;
         }
 
-        public void Heal()
+        public void Heal(Unit target)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Support()
         {
             throw new NotImplementedException();
         }

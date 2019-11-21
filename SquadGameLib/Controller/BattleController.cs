@@ -1,6 +1,7 @@
 ﻿
 using SquadGameLib.Enums;
 using SquadGameLib.units;
+using SquadGameLib.Units;
 using SquadGameLib.Units.Army;
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,15 @@ namespace SquadGameLib.Controller
             {
                 BattleOrder = new BattleOrder(PlayerSquad, AiSquad);
                 Console.WriteLine("Starting round " + Round);
+                Console.WriteLine();
+
+                Console.WriteLine("Set stratgy for the next round using the numbered keys");
+                Console.Write(" Offensive = 1, \n Tactical = 2, \n Survival = 3, \n StrongestFirst = 4, \n WeakestFirst =5");
+                Console.WriteLine();
+
+                int choice = Convert.ToInt32(Console.ReadLine()) - 1;
+                PlayerSquad.Strategy = (Strategy)choice;
+
                 ExecuteRound(BattleOrder);
                 Round++;
                 if (PlayerSquad.isDefeated() || AiSquad.isDefeated())
@@ -77,8 +87,7 @@ namespace SquadGameLib.Controller
             }
             Console.WriteLine("Ended round " + Round + ".");
             Console.WriteLine("-------------------------------------");
-            Console.WriteLine("Press any key to continue");
-            Console.ReadKey();
+            
 
 
         }
@@ -101,9 +110,18 @@ namespace SquadGameLib.Controller
                     target = GetTarget(unit, Strategy.WeakestFirst);
                     return result;
                 case Strategy.Survival:
-                    result = new DoAction(unit.Attack);
-                    target = GetTarget(unit, Strategy.Survival);
-                    return result;
+                    if (unit is IHealer)
+                    {
+                        IHealer healer = unit as IHealer;
+                        result = new DoAction(healer.Heal);
+                        target = GetTarget(unit, Strategy.Survival);
+                        return result;
+                        // else if has defensive special ability?
+                    } else {
+                        result = new DoAction(unit.Attack);
+                        target = GetTarget(unit, Strategy.Offensive);
+                        return result;
+                    }
                 case Strategy.Tactical:
                     result = new DoAction(unit.TacticalAbility);
                     target = unit;
@@ -148,6 +166,7 @@ namespace SquadGameLib.Controller
                 case Strategy.WeakestFirst:
                     break;
                 case Strategy.Survival:
+                    target = unit;
                     break;
             }
 

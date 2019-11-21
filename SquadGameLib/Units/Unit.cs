@@ -14,7 +14,7 @@ namespace SquadGameLib.units
         public string Name { get; set; }
 
         public int MaxHp { get; private set; }
-        public int Hp { get; private set; }
+        public int Hp { get; set; }
         public int AttackPower { get; private set; }
         public int Defence { get; private set; }
         public int Aim { get; private set; }

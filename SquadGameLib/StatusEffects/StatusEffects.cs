@@ -20,5 +20,10 @@ namespace SquadGameLib.StatusEffects
                 s.TurnsCount++;
             }
         }
+
+        internal bool Contains(Action down)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
