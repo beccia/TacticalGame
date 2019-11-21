@@ -12,8 +12,18 @@ namespace SquadGameLib.StatusEffects
         public Unit Affected { get; set; }
         public int TurnsCount { get; set; }
        
-
         public int CountLimit { get; set; }
+
+        public Down(Unit affected)
+        {
+            this.Affected = affected;
+        }
+
+        public Down(Unit affected, int countLimit)
+        {
+            this.Affected = affected;
+            this.CountLimit = countLimit;
+        }
 
         public void Effect()
         {

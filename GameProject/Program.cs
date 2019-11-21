@@ -1,4 +1,5 @@
 ﻿using SquadGameLib;
+using SquadGameLib.Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +20,9 @@ namespace GameProject
             Console.WriteLine(player.PlayerSquad.ToString());
             Console.WriteLine(enemySquad.ToString());
 
-
-
+            BattleController b1 = new BattleController(player.PlayerSquad, enemySquad);
+           // bool playerWOn = b1.RunBattle();
+           
 
 
 

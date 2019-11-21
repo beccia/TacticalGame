@@ -22,7 +22,7 @@ namespace SquadGameLib
             int combatants = 0;
             foreach (Unit u in this)
             {
-                if (!u.StatusEffects.UnitIncapacitated())
+                if (!u.IsIncapacitated())
                 {
                     combatants++;
                 }

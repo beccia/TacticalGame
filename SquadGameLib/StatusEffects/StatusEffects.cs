@@ -12,15 +12,6 @@ namespace SquadGameLib.StatusEffects
         public Status() {
         }
 
-        public bool UnitIncapacitated()
-        {
-            if (this.OfType<Dead>().Any() || this.OfType<Down>().Any())
-            {
-                return true;
-            }
-            else return false;
-        }
-
 
 
         public void IncreaseTurnCount()

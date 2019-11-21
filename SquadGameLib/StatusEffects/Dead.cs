@@ -9,9 +9,13 @@ namespace SquadGameLib.StatusEffects
 {
     public class Dead : IStatusEffect
     {
-        public Unit Affcted { get; set; }
-        public int TurnsCount { get; set; }
         public Unit Affected { get; set; }
+        public int TurnsCount { get; set; }
+
+        public Dead(Unit affcted)
+        {
+            this.Affected = affcted;
+        }
 
         public void Effect()
         {

@@ -48,17 +48,23 @@ namespace SquadGameLib.units
         public void Attack(Unit unit)
         {
             // if hit - dodge * modifyer -> hit, damage = dpower - defense * modifyer 
+
+
+
             throw new NotImplementedException();
         }
 
         public void Die()
         {
-            throw new NotImplementedException();
+            this.AddStatusEffect(new Dead(this));
         }
 
         public void Down()
         {
-            throw new NotImplementedException();
+            //chosen for 4 as turncount so 3 full truns remain
+            Down down = new Down(this, 4);
+            this.AddStatusEffect(down);
+            Console.WriteLine(this.Name + "is wounded and cannot fight anymore. Needs medical assistance within " + down.CountLimit + "turns." );
         }
 
         public void SpecialAttack(Unit unit)
@@ -74,7 +80,7 @@ namespace SquadGameLib.units
 
         public void AddStatusEffect(IStatusEffect statusEffect)
         {
-
+            this.StatusEffects.Add(statusEffect);
         }
 
         public bool IsIncapacitated()

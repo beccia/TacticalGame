@@ -108,7 +108,6 @@ namespace SquadGameLib.Controller
 
         public Unit GetTarget(Unit unit, Strategy strategy)
         {
-            // select possible tagets 
             Squad enemySquad = AiSquad;
             if (unit.Assigned != PlayerSquad)
             {
@@ -121,10 +120,20 @@ namespace SquadGameLib.Controller
             {
                 case Strategy.Offensive:
                     int unitIndex = unit.Assigned.IndexOf(unit);
-                    target = targettable[unitIndex];
-                    // als leeg:
+                    if (targettable.Count -1 >= unitIndex)
+                    {
+                        target = targettable[unitIndex];
+                    }
+                    else
+                    {
+                        do
+                        {
+                            unitIndex--;
+                        } while (unitIndex > targettable.Count - 1);
+                        target = targettable[unitIndex];
+                    }
 
-                    break;
+                    return target;
                 case Strategy.StrongestFirst:
                     break;
                 case Strategy.WeakestFirst:
