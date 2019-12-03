@@ -14,6 +14,11 @@ namespace SquadGameLib.StatusEffects
        
         public int CountLimit { get; set; }
 
+        public Down()
+        {
+
+        }
+
         public Down(Unit affected)
         {
             this.Affected = affected;

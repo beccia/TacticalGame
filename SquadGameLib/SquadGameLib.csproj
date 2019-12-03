@@ -58,7 +58,7 @@
     <Compile Include="StatusEffects\Dead.cs" />
     <Compile Include="StatusEffects\Down.cs" />
     <Compile Include="StatusEffects\IStatusEffect.cs" />
-    <Compile Include="StatusEffects\StatusEffects.cs" />
+    <Compile Include="StatusEffects\Status.cs" />
     <Compile Include="Units\Aliens\Annihilator.cs" />
     <Compile Include="Units\Aliens\BattleLord.cs" />
     <Compile Include="Units\Aliens\Grunt.cs" />

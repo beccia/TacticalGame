@@ -1,5 +1,7 @@
 ﻿using SquadGameLib;
 using SquadGameLib.Controller;
+using SquadGameLib.units;
+using SquadGameLib.Units.Army;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,11 @@ namespace GameProject
             Squad enemySquad = gameController.CreateEnemySquad();
             Console.WriteLine(player.PlayerSquad.ToString());
             Console.WriteLine(enemySquad.ToString());
+
+            // remove 1st tooper and add medic
+            player.PlayerSquad[0].UnAssign(player.PlayerSquad);
+            new Medic().AssignToSquad(player.PlayerSquad);
+
 
             //initizalize battle
             BattleController b1 = new BattleController(player.PlayerSquad, enemySquad);

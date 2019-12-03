@@ -21,9 +21,14 @@ namespace SquadGameLib.StatusEffects
             }
         }
 
-        internal bool Contains(Action down)
+        public void Clear(IStatusEffect se)
         {
-            throw new NotImplementedException();
+            foreach (IStatusEffect s in this)
+            {
+               if (s.GetType() == se.GetType()) { 
+                    this.Remove(s);
+                }
+            }
         }
     }
 }

@@ -86,6 +86,8 @@ namespace SquadGameLib.Controller
                 }
             }
             Console.WriteLine("Ended round " + Round + ".");
+            PlayerSquad.ExecuteSupportActions();
+            AiSquad.ExecuteSupportActions();
             Console.WriteLine("-------------------------------------");
             
 
@@ -166,6 +168,9 @@ namespace SquadGameLib.Controller
                 case Strategy.WeakestFirst:
                     break;
                 case Strategy.Survival:
+
+
+
                     target = unit;
                     break;
             }

@@ -15,49 +15,45 @@ namespace SquadGameLib.Units.Army
         public Trooper() : base()
         {
             this.MedSkills = 15;
-            this.HealCountDown = 0;
         }
 
 
 
         public void Heal(Unit target)
         {
-            Unit downed = target.Assigned.Find(u => u.StatusEffects.OfType<Down>().Any());
-            if (downed != null)
+            Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
+            double modifyer = rd.Next(85, 120) / 100.00;
+            int healAmount = (int)(modifyer * this.MedSkills);
+            if (this.Hp + healAmount > this.MaxHp)
             {
-                Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
-                double modifyer = rd.Next(85, 120) / 100.00;
-                int healAmount = (int)(modifyer * this.MedSkills);
-                if (downed.Hp + healAmount > downed.MaxHp)
-                {
-                    downed.Hp = downed.MaxHp;
-                }
-                else
-                {
-                    downed.Hp += healAmount;
-                }
-                Console.WriteLine(this.Name + " uses an emergency kit and is able to get " + downed.Name + "back on the battlefield with " + healAmount + "HP.");
+                this.Hp = this.MaxHp;
             }
-            else
-            {
-                Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
-                double modifyer = rd.Next(85, 120) / 100.00;
-                int healAmount = (int)(modifyer * this.MedSkills);
-                if (this.Hp + healAmount > this.MaxHp)
-                {
-                    this.Hp = this.MaxHp;
-                }
-                else
-                {
-                    this.Hp += healAmount;
-                }
-                Console.WriteLine(this.Name + " uses a medkit and is able to restore " + healAmount + "HP");
-            }
+             else
+             {
+                 this.Hp += healAmount;
+             }
+                 Console.WriteLine(this.Name + " uses a medkit and is able to restore " + healAmount + "HP.");
         }
+
 
         public void Support()
         {
-            throw new NotImplementedException();
+            if (Assigned.GetViableTargets().Count > 1) {
+                int index = Assigned.GetViableTargets().IndexOf(this);
+                Unit healTarget = (index - 1 >= 0) ? Assigned[index - 1] : Assigned[index + 1];
+                Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
+                double modifyer = rd.Next(85, 120) / 100.00;
+                int healAmount = (int)(modifyer * this.MedSkills);
+                if (healTarget.Hp + healAmount > this.MaxHp)
+                {
+                    healTarget.Hp = this.MaxHp;
+                }
+                else
+                {
+                    healTarget.Hp += healAmount;
+                }
+                Console.WriteLine(this.Name + " uses a medkit on a nearby unit and is able to restore " + healAmount + "HP to " + healTarget.Name + ".");
+            }
         }
     }
 }

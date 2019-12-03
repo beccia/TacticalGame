@@ -109,6 +109,11 @@ namespace SquadGameLib.units
             this.StatusEffects.Add(statusEffect);
         }
 
+        public void RemoveStatusEffect(IStatusEffect statusEffect)
+        {
+            this.StatusEffects.Remove(statusEffect);
+        }
+
         public bool IsIncapacitated()
         {
             if (this.StatusEffects.OfType<Dead>().Any() || this.StatusEffects.OfType<Down>().Any())
@@ -122,6 +127,12 @@ namespace SquadGameLib.units
         {
             squad.Add(this);
             this.Assigned = squad;
+        }
+
+        public void UnAssign(Squad squad)
+        {
+            squad.Remove(this);
+            this.Assigned = null;
         }
     }
 
