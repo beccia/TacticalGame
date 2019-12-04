@@ -12,7 +12,5 @@ namespace SquadGameLib.StatusEffects
         Unit Affected { get; set; }
         int TurnsCount { get; set; }
         void Effect();
-
-        void Remove();
     }
 }

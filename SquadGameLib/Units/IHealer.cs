@@ -11,7 +11,10 @@ namespace SquadGameLib.Units
     {
         int MedSkills { get; set; }
     
-         void Heal(Unit target);
-         void Support();
+        void Heal(Unit target);
+
+        int RollHealAmount();
+
+        void Support();
     }
 }

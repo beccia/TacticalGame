@@ -22,9 +22,5 @@ namespace SquadGameLib.StatusEffects
             throw new NotImplementedException();
         }
 
-        public void Remove()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SquadGameLib.Abilities
 {
-    class Abilities
+    public class AbilityList : List<IAbility>
     {
+
     }
 }

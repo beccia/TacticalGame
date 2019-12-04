@@ -1,4 +1,5 @@
-﻿using SquadGameLib.StatusEffects;
+﻿using SquadGameLib.Abilities;
+using SquadGameLib.StatusEffects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,29 @@ namespace SquadGameLib.units
         public string Name { get; set; }
 
         public int MaxHp { get; private set; }
-        public int Hp { get; set; }
+
+
+        private int _hp;
+        public int Hp {
+            get
+            {
+                return _hp;
+            }
+            set
+            {
+                _hp = value < 0 ? 0 : value > MaxHp ? MaxHp : value;
+                /*if (_hp < 0)
+                {
+                    _hp = 0;
+                }
+                else if (_hp > MaxHp)
+                {
+                    _hp = MaxHp;
+                }
+                else _hp = value;*/
+            }
+        
+        }
         public int AttackPower { get; private set; }
         public int Defence { get; private set; }
         public int Aim { get; private set; }
@@ -25,6 +48,7 @@ namespace SquadGameLib.units
 
         public Status StatusEffects { get; private set; }
         //TODO: ABility, Status effect
+        public AbilityList Abilities { get; private set; }
 
 
         public Unit()
@@ -39,6 +63,7 @@ namespace SquadGameLib.units
             this.Speed = BaseStats;
             this.Assigned = null;
             this.StatusEffects = new Status();
+            this.Abilities = new AbilityList();
         }
 
 
@@ -62,11 +87,6 @@ namespace SquadGameLib.units
                 Console.WriteLine("Hit target for " + totalDamage + " damage.");
                 Console.WriteLine();
                 target.Hp -= totalDamage;
-            }
-            if (target.Hp <= 0) //nog toevoegen: down
-            {
-                target.Hp = 0;
-                target.Die();
             }
 
         }
@@ -109,10 +129,6 @@ namespace SquadGameLib.units
             this.StatusEffects.Add(statusEffect);
         }
 
-        public void RemoveStatusEffect(IStatusEffect statusEffect)
-        {
-            this.StatusEffects.Remove(statusEffect);
-        }
 
         public bool IsIncapacitated()
         {

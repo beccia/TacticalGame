@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abilities\AbilityList.cs" />
+    <Compile Include="Abilities\IAbility.cs" />
     <Compile Include="BattleOrder.cs" />
     <Compile Include="Controller\BattleController.cs" />
     <Compile Include="Enums\Faction.cs" />
