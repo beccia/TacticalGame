@@ -1,4 +1,5 @@
-﻿using SquadGameLib.units;
+﻿using SquadGameLib.Abilities;
+using SquadGameLib.units;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,9 @@ namespace SquadGameLib.Units.Aliens
     {
         public Grunt(): base()
         {
-
+            this.AddAbility(new Rush());
         }
+
+     
     }
 }

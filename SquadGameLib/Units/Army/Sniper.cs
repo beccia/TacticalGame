@@ -9,7 +9,14 @@ namespace SquadGameLib.Units.Army
 {
     public class Sniper : Unit, IHardToHit
     {
+        public Unit targetInSight { get; private set; }
+
         public Sniper() : base()
+        {
+
+        }
+
+        public override void Attack(Unit target)
         {
 
         }

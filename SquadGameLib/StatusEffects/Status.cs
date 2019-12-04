@@ -13,11 +13,22 @@ namespace SquadGameLib.StatusEffects
         }
 
 
+        public void ExecuteEffects()
+        {
+            foreach (IStatusEffect s in this)
+            {
+                s.Effect();
+            }
+        }
 
-        public void IncreaseTurnCount()
+        public void DecreaseTurnCount()
         {
             foreach(IStatusEffect s in this) {
-                s.TurnsCount++;
+                s.RemainingTime--;
+                if (s.RemainingTime <= 0)
+                {
+                    Clear(s);
+                }
             }
         }
 
@@ -27,6 +38,7 @@ namespace SquadGameLib.StatusEffects
             {
                if (s.GetType() == se.GetType()) { 
                     this.Remove(s);
+                    s.Undo();
                 }
             }
         }

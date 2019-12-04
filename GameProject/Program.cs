@@ -26,7 +26,9 @@ namespace GameProject
 
             // remove 1st tooper and add medic
             player.PlayerSquad[0].UnAssign(player.PlayerSquad);
-            new Medic().AssignToSquad(player.PlayerSquad);
+            Medic medic1 = new Medic();
+            medic1.Name = "Doc";
+            medic1.AssignToSquad(player.PlayerSquad);
 
 
             //initizalize battle

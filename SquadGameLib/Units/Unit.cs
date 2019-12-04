@@ -10,7 +10,7 @@ namespace SquadGameLib.units
 {
     public abstract class Unit
     {
-        public const int BaseStats = 100;
+        public readonly int BaseStats = 100;
 
         public string Name { get; set; }
 
@@ -26,28 +26,22 @@ namespace SquadGameLib.units
             set
             {
                 _hp = value < 0 ? 0 : value > MaxHp ? MaxHp : value;
-                /*if (_hp < 0)
+                if (_hp == 0)
                 {
-                    _hp = 0;
+                    this.Die();
                 }
-                else if (_hp > MaxHp)
-                {
-                    _hp = MaxHp;
-                }
-                else _hp = value;*/
             }
         
         }
-        public int AttackPower { get; private set; }
-        public int Defence { get; private set; }
-        public int Aim { get; private set; }
-        public int Evasion { get; private set; }
-        public int Speed { get; private set; }
+        public int AttackPower { get; set; }
+        public int Defence { get; set; }
+        public int Aim { get; set; }
+        public int Evasion { get; set; }
+        public int Speed { get; set; }
 
         public Squad Assigned { get; private set; }
 
         public Status StatusEffects { get; private set; }
-        //TODO: ABility, Status effect
         public AbilityList Abilities { get; private set; }
 
 
@@ -70,7 +64,7 @@ namespace SquadGameLib.units
 
 
 
-        public void Attack(Unit target)
+        public virtual void Attack(Unit target)
         {
             Console.WriteLine(this.Name + " attacks "+ target.Name);
             if (!TargetHit(this.Aim, target.Evasion))
@@ -80,10 +74,7 @@ namespace SquadGameLib.units
             }
             else
             {
-                Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
-                double modifyer = rd.Next(75, 120)/100.00;
-                int statsDamage = this.AttackPower - target.Defence;
-                int totalDamage = (int)(statsDamage * modifyer);
+                int totalDamage = (int)((this.AttackPower - target.Defence) * GetDamageModifyer(75, 120));
                 Console.WriteLine("Hit target for " + totalDamage + " damage.");
                 Console.WriteLine();
                 target.Hp -= totalDamage;
@@ -95,8 +86,30 @@ namespace SquadGameLib.units
         {
             Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
             int rgn = rd.Next(0, 100);
+            // evasion modifyer 0.6 test and edit if needed 
             int statsResult = aim - (int)(evasion * 0.6);
             return statsResult > rgn ? true : false;
+        }
+
+        public double GetDamageModifyer(int min, int max)
+        {
+            Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
+            double modifyer = rd.Next(min, max) / 100.00;
+            return modifyer;
+        }
+
+        
+
+        public void SpecialAttack(Unit target)
+        {
+            List<Ability> abilities = this.Abilities.GetAvailableAbilities(Enums.AbilityType.Offensive);
+            abilities[0].Use(this, target);
+        }
+
+        public void TacticalAbility(Unit unit)
+        {
+            throw new NotImplementedException();
+
         }
 
         public void Die()
@@ -107,27 +120,21 @@ namespace SquadGameLib.units
 
         public void Down()
         {
-            //chosen for 4 as turncount so 3 full truns remain
-            Down down = new Down(this, 4);
-            this.AddStatusEffect(down);
-            Console.WriteLine(this.Name + "is wounded and cannot fight anymore. Needs medical assistance within " + down.CountLimit + "turns." );
-        }
-
-        public void SpecialAttack(Unit unit)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void TacticalAbility(Unit unit)
-        {
-            throw new NotImplementedException();
-
+            this.AddStatusEffect(new Down(this));
+            Console.WriteLine(this.Name + "is wounded and cannot fight anymore and will die without medical assitance soon.");
         }
 
         public void AddStatusEffect(IStatusEffect statusEffect)
         {
             this.StatusEffects.Add(statusEffect);
         }
+
+        public void AddAbility(Ability ability)
+        {
+            this.Abilities.Add(ability);
+        }
+
+
 
 
         public bool IsIncapacitated()

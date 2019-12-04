@@ -10,11 +10,11 @@ namespace SquadGameLib.StatusEffects
     public class Dead : IStatusEffect
     {
         public Unit Affected { get; set; }
-        public int TurnsCount { get; set; }
+        public int RemainingTime { get; set; }
 
-        public Dead(Unit affcted)
+        public Dead(Unit affected)
         {
-            this.Affected = affcted;
+            this.Affected = affected;
         }
 
         public void Effect()
@@ -22,5 +22,9 @@ namespace SquadGameLib.StatusEffects
             throw new NotImplementedException();
         }
 
+        public void Undo()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

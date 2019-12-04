@@ -15,7 +15,7 @@ namespace SquadGameLib.Units.Army
         public int MaxHealRoll { get; private set; }
 
         public Trooper() : base()
-        {
+        { 
             this.MedSkills = 15;
             this.MinHealRoll = 85;
             this.MaxHealRoll = 115;
@@ -24,12 +24,10 @@ namespace SquadGameLib.Units.Army
 
 
         public void Heal(Unit target)
-        {
-            Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
-            double modifyer = rd.Next(85, 120) / 100.00;
-            int healAmount = (int)(modifyer * this.MedSkills);
+        { 
+            int healAmount = RollHealAmount();
             this.Hp += healAmount;
-                 Console.WriteLine(this.Name + " uses a medkit and is able to restore " + healAmount + "HP.");
+                 Console.WriteLine(this.Name + " uses a medkit and is able to restore " + healAmount + "HP to himself.");
         }
 
         public int RollHealAmount() { 
@@ -46,9 +44,7 @@ namespace SquadGameLib.Units.Army
             if (Assigned.GetViableTargets().Count > 1) {
                 int index = Assigned.GetViableTargets().IndexOf(this);
                 Unit healTarget = (index - 1 >= 0) ? Assigned[index - 1] : Assigned[index + 1];
-                Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
-                double modifyer = rd.Next(85, 120) / 100.00;
-                int healAmount = (int)(modifyer * this.MedSkills);
+                int healAmount = RollHealAmount();
                 healTarget.Hp += healAmount;
                 Console.WriteLine(this.Name + " uses a medkit on a nearby unit and is able to restore " + healAmount + "HP to " + healTarget.Name + ".");
             }

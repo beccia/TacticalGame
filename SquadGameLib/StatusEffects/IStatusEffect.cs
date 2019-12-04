@@ -7,10 +7,11 @@ using System.Threading.Tasks;
 
 namespace SquadGameLib.StatusEffects
 {
-    public interface IStatusEffect
+    public interface IStatusEffect 
     {
         Unit Affected { get; set; }
-        int TurnsCount { get; set; }
+        int RemainingTime { get; set; }
         void Effect();
+        void Undo();
     }
 }

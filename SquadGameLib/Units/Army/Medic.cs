@@ -38,7 +38,7 @@ namespace SquadGameLib.Units.Army
                 int healAmount = RollHealAmount();
                 healTarget.Hp += healAmount;
                 healTarget.StatusEffects.Clear(new Down());
-                Console.WriteLine(this.Name + " runs over to the rescue and is able to raise" + healTarget.Name + "back on the battlefield with " + healAmount + "HP.");
+                Console.WriteLine(this.Name + " runs over to the rescue and is able to raise " + healTarget.Name +".");
             }
             else
             {

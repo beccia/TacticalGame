@@ -10,30 +10,31 @@ namespace SquadGameLib.StatusEffects
     public class Down : IStatusEffect
     {
         public Unit Affected { get; set; }
-        public int TurnsCount { get; set; }
-       
-        public int CountLimit { get; set; }
+        public int RemainingTime { get; set; }
 
-        public Down()
-        {
-
+        public Down() : this(null, 4)
+        { 
+            //default time  is set to  4, for 3 full turns
         }
 
-        public Down(Unit affected)
-        {
-            this.Affected = affected;
-        }
+        public Down(Unit affected) : this(affected, 4) { }
 
-        public Down(Unit affected, int countLimit)
+
+        public Down(Unit affected, int remainingTime)
         {
             this.Affected = affected;
-            this.CountLimit = countLimit;
+            this.RemainingTime = remainingTime;
         }
 
         public void Effect()
         {
-            throw new NotImplementedException();
+            Console.WriteLine(Affected.Name + " is lying wounded on the battlefield.");
         }
 
+        public void Undo()
+        {
+            Console.WriteLine(Affected.Name + " is back on his feet with " + Affected.Hp + " HP.");
+            Affected = null;
+        }
     }
 }

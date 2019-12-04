@@ -47,6 +47,17 @@ namespace SquadGameLib
             return result.ToList<Unit>();
         }
 
+        public void EndOfRoundActions()
+        {
+            ExecuteSupportActions();
+            HandleCounters();
+            foreach (Unit u in this)
+            {
+                u.StatusEffects.ExecuteEffects();
+            }
+            
+        }
+
         public void ExecuteSupportActions()
         {
             List<IHealer> supportUnits = new List<IHealer>();
@@ -65,6 +76,15 @@ namespace SquadGameLib
                 {
                     healer.Support();
                 }
+            }
+        }
+
+        public void HandleCounters()
+        {
+            foreach (Unit u in this)
+            {
+                u.Abilities.ReduceCooldownCounters();
+                u.StatusEffects.DecreaseTurnCount();
             }
         }
 

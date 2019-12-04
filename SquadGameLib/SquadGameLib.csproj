@@ -44,9 +44,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abilities\AbilityList.cs" />
-    <Compile Include="Abilities\IAbility.cs" />
+    <Compile Include="Abilities\Ability.cs" />
+    <Compile Include="Abilities\Rush.cs" />
     <Compile Include="BattleOrder.cs" />
     <Compile Include="Controller\BattleController.cs" />
+    <Compile Include="Enums\AbilityType.cs" />
     <Compile Include="Enums\Faction.cs" />
     <Compile Include="Enums\Strategy.cs" />
     <Compile Include="Factory\AlienSoldierFactory.cs" />
@@ -57,8 +59,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Factory\ISoldierFactory.cs" />
     <Compile Include="Squad.cs" />
+    <Compile Include="StatusEffects\AimUp.cs" />
+    <Compile Include="StatusEffects\AttackUp.cs" />
     <Compile Include="StatusEffects\Dead.cs" />
     <Compile Include="StatusEffects\Down.cs" />
+    <Compile Include="StatusEffects\Exposed.cs" />
     <Compile Include="StatusEffects\IStatusEffect.cs" />
     <Compile Include="StatusEffects\Status.cs" />
     <Compile Include="Units\Aliens\Annihilator.cs" />

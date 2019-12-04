@@ -85,12 +85,16 @@ namespace SquadGameLib.Controller
                     CombatActions.SortbySpeed();
                 }
             }
-            Console.WriteLine("Ended round " + Round + ".");
-            PlayerSquad.ExecuteSupportActions();
-            AiSquad.ExecuteSupportActions();
+            Console.WriteLine("Ended fighting of round " + Round + ".");
             Console.WriteLine("-------------------------------------");
-            
+   
 
+            PlayerSquad.EndOfRoundActions();
+            AiSquad.EndOfRoundActions();
+
+
+            Console.WriteLine("-------------------------------------");
+           
 
         }
 
@@ -100,9 +104,19 @@ namespace SquadGameLib.Controller
             switch (unit.Assigned.Strategy)
             {
                 case Strategy.Offensive:
-                    result = new DoAction(unit.Attack);
-                    target = GetTarget(unit, Strategy.Offensive);
-                    return result;
+
+                    if (unit.Abilities.GetAvailableAbilities(AbilityType.Offensive).Count > 0)
+                    {
+                        result = new DoAction(unit.SpecialAttack);
+                        target = GetTarget(unit, Strategy.Offensive);
+                        return result;
+                    }
+                    else
+                    {
+                        result = new DoAction(unit.Attack);
+                        target = GetTarget(unit, Strategy.Offensive);
+                        return result;
+                    }
                 case Strategy.StrongestFirst:
                     result = new DoAction(unit.Attack);
                     target = GetTarget(unit, Strategy.StrongestFirst);
@@ -174,8 +188,6 @@ namespace SquadGameLib.Controller
                     target = unit;
                     break;
             }
-
-       
 
             return target;
         }
