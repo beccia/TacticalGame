@@ -45,7 +45,7 @@ namespace SquadGameLib.Abilities
                 int damage = GetPrimaryTargetDamage(tacticalTarget);
 
                 Console.WriteLine($"{actor.Name} launches a missile strike from his drone on tactical target {tacticalTarget.Name}.");
-                Console.WriteLine($"BOOOOOOM! {tacticalTarget.Name} takes {damage} damage. \n");
+                Console.WriteLine($"BOOM! {tacticalTarget.Name} takes {damage} damage. \n");
 
                 tacticalTarget.Hp -= damage;
                 DealSecondaryTargetDamage(tacticalTarget);

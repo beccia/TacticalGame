@@ -75,6 +75,7 @@
     <Compile Include="StatusEffects\DroneInAir.cs" />
     <Compile Include="StatusEffects\Exposed.cs" />
     <Compile Include="StatusEffects\IStatusEffect.cs" />
+    <Compile Include="StatusEffects\MedicalStation.cs" />
     <Compile Include="StatusEffects\Status.cs" />
     <Compile Include="Units\Aliens\Annihilator.cs" />
     <Compile Include="Units\Aliens\BattleLord.cs" />

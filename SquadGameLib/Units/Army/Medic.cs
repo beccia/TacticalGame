@@ -14,10 +14,10 @@ namespace SquadGameLib.Units.Army
         public int MinHealRoll { get; private set; }
         public int MaxHealRoll { get; private set; }
 
+        public bool HasMedStation { get; set; }
+
         public Medic() : this(40)
         { 
-            this.MinHealRoll = 90;
-            this.MaxHealRoll = 120;
         }
 
 
@@ -26,6 +26,7 @@ namespace SquadGameLib.Units.Army
             this.MedSkills = medSkills;
             this.MinHealRoll = 90;
             this.MaxHealRoll = 120;
+            this.HasMedStation = false;
         }
 
 
