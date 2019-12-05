@@ -16,7 +16,16 @@ namespace SquadGameLib
 
         public Strategy Strategy { get; set; }
 
+        public Squad()
+        {
 
+        }
+
+        public Squad(string name)
+        {
+            this.Name = name;
+            this.Strategy = Strategy.Offensive;
+        }
 
         public bool isDefeated()
         {
@@ -71,12 +80,13 @@ namespace SquadGameLib
             }
             if (supportUnits.Count > 0)
             {
-                Console.WriteLine("Sqadmembers of " + this.Name + "are commencing their support actions in between the fighting.");
+                Console.WriteLine("Squadmembers of " + this.Name + " are commencing their support actions in between the fighting.\n");
                 foreach (IHealer healer in supportUnits)
                 {
                     healer.Support();
                 }
             }
+            Console.WriteLine($"{this.Name} is finished and ready for the next round of fighting.\n");
         }
 
         public void HandleCounters()
@@ -86,7 +96,7 @@ namespace SquadGameLib
                 u.Abilities.ReduceCooldownCounters();
                 u.StatusEffects.DecreaseTurnCount();
             }
-        }
+        
 
         public override string ToString()
         {

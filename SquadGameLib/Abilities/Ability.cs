@@ -14,6 +14,7 @@ namespace SquadGameLib.Abilities
         public int CooldownCount { get; set; }
         public int CooldownTime { get; set; }
         public AbilityType Type { get; set; }
+        public bool IsPreferred { get; set; }
 
         public Ability() : this("Unnamed ability", 4)
         { }
@@ -31,11 +32,6 @@ namespace SquadGameLib.Abilities
             {
                 this.CooldownTime--;
             }
-        }
-
-        public virtual void Use(Unit actor)
-        {
-            Console.WriteLine("Abstract class ability usage triggered by " + actor.Name);
         }
 
         public virtual void Use(Unit actor, Unit target)

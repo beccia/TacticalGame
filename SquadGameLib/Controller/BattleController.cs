@@ -2,6 +2,7 @@
 using SquadGameLib.Enums;
 using SquadGameLib.units;
 using SquadGameLib.Units;
+using SquadGameLib.Units.Aliens;
 using SquadGameLib.Units.Army;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace SquadGameLib.Controller
         public bool Ended { get; private set; }
 
         public delegate void DoAction(Unit target);
+
 
         public BattleController(Squad playerSquad, Squad enemySquad)
         {
@@ -139,9 +141,18 @@ namespace SquadGameLib.Controller
                         return result;
                     }
                 case Strategy.Tactical:
-                    result = new DoAction(unit.TacticalAbility);
-                    target = unit;
-                    return result;
+                    if (unit.Abilities.GetAvailableAbilities(AbilityType.Tactical).Count > 0)
+                    {
+                        result = new DoAction(unit.TacticalAbility);
+                        target = GetTarget(unit, Strategy.Tactical);
+                        return result;
+                    }
+                    else
+                    {
+                        result = new DoAction(unit.Attack);
+                        target = GetTarget(unit, Strategy.Tactical);
+                        return result;
+                    }
                 default:
                     target = null;
                     return new DoAction(unit.Attack);
@@ -179,12 +190,20 @@ namespace SquadGameLib.Controller
                     return target;
                 case Strategy.StrongestFirst:
                     break;
+                case Strategy.Tactical:
+                    foreach (Unit u in targettable)
+                    {
+                        if (u.Hp <= unit.AttackPower - u.Defence)
+                        {
+                            target = u;
+                            return target;
+                        }
+                    }
+                    target = GetTarget(unit, Strategy.Offensive);
+                    break;
                 case Strategy.WeakestFirst:
                     break;
                 case Strategy.Survival:
-
-
-
                     target = unit;
                     break;
             }

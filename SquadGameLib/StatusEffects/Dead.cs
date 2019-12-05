@@ -14,17 +14,19 @@ namespace SquadGameLib.StatusEffects
 
         public Dead(Unit affected)
         {
+            this.RemainingTime = 3;
             this.Affected = affected;
         }
 
         public void Effect()
         {
-            throw new NotImplementedException();
+            this.RemainingTime++;
         }
 
         public void Undo()
         {
-            throw new NotImplementedException();
+            this.Affected.StatusEffects.Clear(this);
+            this.Affected = null;
         }
     }
 }

@@ -14,9 +14,8 @@ namespace SquadGameLib.Units.Army
         public int MinHealRoll { get; private set; }
         public int MaxHealRoll { get; private set; }
 
-        public Medic() : base()
-        {
-            this.MedSkills = 40;
+        public Medic() : this(40)
+        { 
             this.MinHealRoll = 90;
             this.MaxHealRoll = 120;
         }
@@ -25,6 +24,8 @@ namespace SquadGameLib.Units.Army
         public Medic(int medSkills) : base()
         {
             this.MedSkills = medSkills;
+            this.MinHealRoll = 90;
+            this.MaxHealRoll = 120;
         }
 
 
@@ -67,7 +68,7 @@ namespace SquadGameLib.Units.Army
                 {
                     int healAmount = RollHealAmount();
                     u.Hp += healAmount;
-                    Console.WriteLine(this.Name + " quickly gives mediacl aid to his squad during the short ceasefire.");
+                    Console.WriteLine(this.Name + " quickly gives medical aid to his squad during the short ceasefire.");
                     Console.WriteLine(this.Name + " is able to restore " + healAmount + "HP to " + u.Name);
                 }
             }

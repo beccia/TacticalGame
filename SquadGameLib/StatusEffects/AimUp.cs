@@ -1,9 +1,6 @@
 ﻿using SquadGameLib.units;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace SquadGameLib.StatusEffects
 {
@@ -37,9 +34,10 @@ namespace SquadGameLib.StatusEffects
         }
 
         public void Undo()
-        {
+        { 
             Console.WriteLine($"{Affected.Name}'s capability to hit targets returned to normal.");
             Affected.Aim -= AimBuff;
+            this.Affected = null;
         }
     }
 

@@ -18,9 +18,18 @@ namespace SquadGameLib.Abilities
         public int ChanceForExtraAttack { get; private set; }
         public int StatusEffectsDuration { get; private set; }
 
-
+        //2nd argument is default cooldown Time
         public Rush() : base("Rush attack", 3)
         {
+            this.IsPreferred = false;
+            this.ChanceForExtraAttack = 37;
+            this.StatusEffectsDuration = 3;
+            this.Type = Enums.AbilityType.Offensive;
+        }
+
+        public Rush(bool isPreferred) : base("Rush attack", 3)
+        {
+            this.IsPreferred = isPreferred;
             this.ChanceForExtraAttack = 37;
             this.StatusEffectsDuration = 3;
             this.Type = Enums.AbilityType.Offensive;
@@ -28,11 +37,11 @@ namespace SquadGameLib.Abilities
 
         public override void Use(Unit actor, Unit target)
         {
-            Console.WriteLine($"{actor} charges straight at the enemy with an offensive rush.");
+            Console.WriteLine($"{actor.Name} uses {this.Name} and  charges straight at the enemy with an all-out offensive rush.");
             // numbers inserted are buff/debuff modifyers, still need to be balanced
-            actor.AddStatusEffect(new Exposed(actor, StatusEffectsDuration, 35, 18));
-            actor.AddStatusEffect(new AttackUp(actor, StatusEffectsDuration, 22));
+            actor.AddStatusEffect(new AttackUp(actor, StatusEffectsDuration, 26));
             actor.AddStatusEffect(new AimUp(actor, StatusEffectsDuration, 18));
+            actor.AddStatusEffect(new Exposed(actor, StatusEffectsDuration, 20, 18));
 
             actor.Attack(target);
             if (RollForExtraAttack(ChanceForExtraAttack))

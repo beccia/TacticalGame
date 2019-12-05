@@ -34,7 +34,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime, Version=4.1.1.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.4.3.1\lib\net462\System.Runtime.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,7 +51,9 @@
   <ItemGroup>
     <Compile Include="Abilities\AbilityList.cs" />
     <Compile Include="Abilities\Ability.cs" />
+    <Compile Include="Abilities\DroneStrike.cs" />
     <Compile Include="Abilities\Rush.cs" />
+    <Compile Include="Abilities\SupportDrone.cs" />
     <Compile Include="BattleOrder.cs" />
     <Compile Include="Controller\BattleController.cs" />
     <Compile Include="Enums\AbilityType.cs" />
@@ -61,8 +69,10 @@
     <Compile Include="Squad.cs" />
     <Compile Include="StatusEffects\AimUp.cs" />
     <Compile Include="StatusEffects\AttackUp.cs" />
+    <Compile Include="StatusEffects\CritChanceUp.cs" />
     <Compile Include="StatusEffects\Dead.cs" />
     <Compile Include="StatusEffects\Down.cs" />
+    <Compile Include="StatusEffects\DroneInAir.cs" />
     <Compile Include="StatusEffects\Exposed.cs" />
     <Compile Include="StatusEffects\IStatusEffect.cs" />
     <Compile Include="StatusEffects\Status.cs" />
@@ -79,6 +89,9 @@
     <Compile Include="Units\IHardToHit.cs" />
     <Compile Include="Units\IHealer.cs" />
     <Compile Include="Units\Unit.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

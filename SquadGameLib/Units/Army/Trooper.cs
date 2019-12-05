@@ -41,9 +41,10 @@ namespace SquadGameLib.Units.Army
 
         public void Support()
         {
-            if (Assigned.GetViableTargets().Count > 1) {
-                int index = Assigned.GetViableTargets().IndexOf(this);
-                Unit healTarget = (index - 1 >= 0) ? Assigned[index - 1] : Assigned[index + 1];
+            List<Unit> availableTargets = Assigned.GetViableTargets();
+            if (availableTargets.Count > 1) {
+                int index = availableTargets.IndexOf(this);
+                Unit healTarget = (index - 1 >= 0) ? availableTargets[index - 1] : Assigned[index + 1];
                 int healAmount = RollHealAmount();
                 healTarget.Hp += healAmount;
                 Console.WriteLine(this.Name + " uses a medkit on a nearby unit and is able to restore " + healAmount + "HP to " + healTarget.Name + ".");

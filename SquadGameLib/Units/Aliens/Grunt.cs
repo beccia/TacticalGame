@@ -12,7 +12,7 @@ namespace SquadGameLib.Units.Aliens
     {
         public Grunt(): base()
         {
-            this.AddAbility(new Rush());
+            this.AddAbility(new Rush(true));
         }
 
      

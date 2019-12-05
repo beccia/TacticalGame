@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SquadGameLib.StatusEffects
 {
-    public interface IStatusEffect 
+    public interface IStatusEffect
     {
         Unit Affected { get; set; }
         int RemainingTime { get; set; }

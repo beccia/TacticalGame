@@ -17,7 +17,7 @@ namespace SquadGameLib
         {
             Name = "Player 1";
             Faction = Faction.EarthForces;
-            PlayerSquad = new Squad();
+            PlayerSquad = new Squad("Player's squad");
         }
 
         public Player(string name, Faction faction, Squad playerSquad)
