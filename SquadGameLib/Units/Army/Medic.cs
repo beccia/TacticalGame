@@ -29,7 +29,7 @@ namespace SquadGameLib.Units.Army
             this.AttackPower = (int)(BaseStats * 0.78);
             this.Defence = (int)(BaseStats * 0.6);
             this.Aim = (int)(BaseStats * 0.80);
-            this.Evasion = (int)(BaseStats / 1.68);
+            this.Evasion = (int)(BaseStats / 1.76);
             this.Speed = (int)(BaseStats * 1.25);
             this.CritChance = BaseStats / 16;
             this.Assigned = null;

@@ -30,7 +30,7 @@ namespace SquadGameLib.Abilities
         public Rush(bool isPreferred) : base("Rush attack", 3)
         {
             this.IsPreferred = isPreferred;
-            this.ChanceForExtraAttack = 37;
+            this.ChanceForExtraAttack = 38;
             this.StatusEffectsDuration = 3;
             this.Type = Enums.AbilityType.Offensive;
         }
@@ -39,9 +39,9 @@ namespace SquadGameLib.Abilities
         {
             Console.WriteLine($"{actor.Name} uses {this.Name} and  charges straight at the enemy with an all-out offensive rush.");
             // numbers inserted are buff/debuff modifyers, still need to be balanced
-            actor.AddStatusEffect(new AttackUp(actor, StatusEffectsDuration, 28));
+            actor.AddStatusEffect(new AttackUp(actor, StatusEffectsDuration, 34));
             actor.AddStatusEffect(new AimUp(actor, StatusEffectsDuration, 18));
-            actor.AddStatusEffect(new Exposed(actor, StatusEffectsDuration, 18, 20));
+            actor.AddStatusEffect(new Exposed(actor, StatusEffectsDuration, 16, 19));
 
             actor.Attack(target);
             if (RollForExtraAttack(ChanceForExtraAttack))

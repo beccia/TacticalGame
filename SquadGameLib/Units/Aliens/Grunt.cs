@@ -22,7 +22,7 @@ namespace SquadGameLib.Units.Aliens
             this.Name = name;
             this.MaxHp = (int)(BaseStats * 1.06);
             this.Hp = MaxHp;
-            this.AttackPower = (int)(BaseStats / 1.04);
+            this.AttackPower = (int)(BaseStats / 1.05);
             this.Defence = (int)(BaseStats * 0.7);
             this.Aim = (int)(BaseStats * 0.95);
             this.Evasion = (int)(BaseStats / 2.09);
