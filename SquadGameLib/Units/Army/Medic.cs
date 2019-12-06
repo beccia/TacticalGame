@@ -16,7 +16,7 @@ namespace SquadGameLib.Units.Army
 
         public bool HasMedStation { get; set; }
 
-        public Medic() : this(40)
+        public Medic() : this(30)
         { 
         }
 
@@ -60,6 +60,7 @@ namespace SquadGameLib.Units.Army
 
         public void Support()
         {
+            Console.WriteLine(this.Name + " quickly gives medical aid to his squad during the short ceasefire.");
             foreach (Unit u in this.Assigned.GetViableTargets())
             {
                 if (u == this) {
@@ -69,9 +70,22 @@ namespace SquadGameLib.Units.Army
                 {
                     int healAmount = RollHealAmount();
                     u.Hp += healAmount;
-                    Console.WriteLine(this.Name + " quickly gives medical aid to his squad during the short ceasefire.");
                     Console.WriteLine(this.Name + " is able to restore " + healAmount + "HP to " + u.Name);
                 }
+            }
+            if (HasMedStation && this.Hp < this.MaxHp)
+            {
+                List<Unit> downed = this.Assigned.GetDownedUnits();
+                if (downed.Any())
+                {
+                    Unit healTarget = downed[0];
+                    healTarget.Hp += (int)(healTarget.MaxHp /33.333);
+                    healTarget.StatusEffects.Clear(new Down());
+                    Console.WriteLine($"{this.Name} runs over to the rescue and is able to raise " + healTarget.Name + ".");
+                }
+                int healAmount = RollHealAmount();
+                this.Hp += healAmount;
+                Console.WriteLine(this.Name + " patches himself up  for " + healAmount + "HP.");
             }
         }
     }

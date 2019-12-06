@@ -48,6 +48,7 @@ namespace SquadGameLib.Abilities
             {
                 if (target.Assigned.GetViableTargets().Count > 1)
                 {
+                    Console.WriteLine($"{actor.Name} attacks again in charge!");
                     int index = target.Assigned.GetViableTargets().IndexOf(target);
                     Unit secondTarget = (index - 1 >= 0) ? target.Assigned[index - 1] : target.Assigned[index + 1];
                     actor.Attack(secondTarget);

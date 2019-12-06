@@ -96,6 +96,7 @@ namespace SquadGameLib
                 u.Abilities.ReduceCooldownCounters();
                 u.StatusEffects.DecreaseTurnCount();
             }
+        }
         
 
         public override string ToString()
