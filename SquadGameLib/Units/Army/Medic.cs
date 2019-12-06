@@ -1,4 +1,5 @@
-﻿using SquadGameLib.StatusEffects;
+﻿using SquadGameLib.Abilities;
+using SquadGameLib.StatusEffects;
 using SquadGameLib.units;
 using System;
 using System.Collections.Generic;
@@ -16,17 +17,28 @@ namespace SquadGameLib.Units.Army
 
         public bool HasMedStation { get; set; }
 
-        public Medic() : this(30)
-        { 
+        public Medic() : this("Nameless Medic")
+        {
         }
 
-
-        public Medic(int medSkills) : base()
+        public Medic(string name)
         {
-            this.MedSkills = medSkills;
+            this.Name = name;
+            this.MaxHp = (int)(BaseStats * 0.85);
+            this.Hp = MaxHp;
+            this.AttackPower = (int)(BaseStats * 0.78);
+            this.Defence = (int)(BaseStats * 0.6);
+            this.Aim = (int)(BaseStats * 0.80);
+            this.Evasion = (int)(BaseStats / 1.68);
+            this.Speed = (int)(BaseStats * 1.25);
+            this.CritChance = BaseStats / 16;
+            this.Assigned = null;
+            this.StatusEffects = new Status();
+            this.Abilities = new AbilityList();
+
+            this.MedSkills = 25;
             this.MinHealRoll = 90;
-            this.MaxHealRoll = 120;
-            this.HasMedStation = false;
+            this.MaxHealRoll = 110;
         }
 
 
@@ -60,7 +72,7 @@ namespace SquadGameLib.Units.Army
 
         public void Support()
         {
-            Console.WriteLine(this.Name + " quickly gives medical aid to his squad during the short ceasefire.");
+            Console.WriteLine(this.Name + " quickly gives medical aid to his squad during the short ceasefire:");
             foreach (Unit u in this.Assigned.GetViableTargets())
             {
                 if (u == this) {
@@ -70,22 +82,37 @@ namespace SquadGameLib.Units.Army
                 {
                     int healAmount = RollHealAmount();
                     u.Hp += healAmount;
-                    Console.WriteLine(this.Name + " is able to restore " + healAmount + "HP to " + u.Name);
+                    Console.WriteLine($"    {this.Name} is able to restore {healAmount} HP to {u.Name}.");
                 }
             }
-            if (HasMedStation && this.Hp < this.MaxHp)
+            if (HasMedStation)
             {
                 List<Unit> downed = this.Assigned.GetDownedUnits();
                 if (downed.Any())
                 {
                     Unit healTarget = downed[0];
-                    healTarget.Hp += (int)(healTarget.MaxHp /33.333);
+                    healTarget.Hp += (int)(healTarget.MaxHp /3.333);
                     healTarget.StatusEffects.Clear(new Down());
-                    Console.WriteLine($"{this.Name} runs over to the rescue and is able to raise " + healTarget.Name + ".");
+                    Console.WriteLine($"{this.Name} gives {healTarget.Name} emercency treating in the medical station and raises him with {healTarget.Hp} HP.");
                 }
-                int healAmount = RollHealAmount();
-                this.Hp += healAmount;
-                Console.WriteLine(this.Name + " patches himself up  for " + healAmount + "HP.");
+                if (this.Hp < this.MaxHp) {
+                    int healAmount = RollHealAmount();
+                    this.Hp += healAmount;
+                    Console.WriteLine(this.Name + " patches himself up  for " + healAmount + "HP.");
+                }
+            }
+        }
+
+        public override void TacticalAbility(Unit target)
+        {
+            if (!HasMedStation)
+            {
+                Console.WriteLine($"{this.Name} sets up shop.");
+                this.AddStatusEffect(new MedicalStation(this,4));
+            } 
+            else
+            {
+                this.Attack(target);
             }
         }
     }

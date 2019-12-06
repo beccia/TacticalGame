@@ -26,6 +26,11 @@ namespace SquadGameLib
             this.EnemySquadSize = squadSize;
         }
 
+        public BattleController CreateBattle(Squad playerSquad, Squad enemySquad)
+        {
+            return new BattleController(playerSquad, enemySquad);
+        }
+
         public void CreatePlayerSquad(Player player)
         {
             for (int i = 0; i < PlayerSquadSize; i++)
@@ -36,22 +41,43 @@ namespace SquadGameLib
             }
         }
 
-
-        public Squad CreateEnemySquad()
+        public Squad CreateEnemySquad(int level = 1)
         {
-            Squad enemySquad = new Squad("Enemy Squad");
-            for (int i = 0; i < PlayerSquadSize; i++)
+            Squad enemySquad = new Squad($"Enemy Squad lv.{level}:");
+            ISoldierFactory<Unit> factory = FactoryDirector.CreateFactory(new AlienSoldierFactory());
+            switch (level)
             {
-                Unit u = (Unit)FactoryDirector.CreateFactory(new AlienSoldierFactory()).Create();
-                u.Name = "Grunt nr " + (i + 1);
-                u.AssignToSquad(enemySquad);
+                case 1:
+                    for (int i = 0; i < PlayerSquadSize; i++)
+
+                    {
+                        Unit u = factory.Create();
+                        u.Name = "Grunt nr " + (i + 1);
+                        u.AssignToSquad(enemySquad);
+
+                    }
+                    return enemySquad;
+                case 2:
+                    for (int i = 0; i < PlayerSquadSize - 1; i++)
+
+                    {
+                        Unit u = factory.Create();
+                        u.Name = "Grunt nr " + (i + 1);
+                        u.AssignToSquad(enemySquad);
+
+                    }
+                    Unit shaman = factory.CreateMedicSoldier();
+                    shaman.Name = "Alien Shaman";
+                    shaman.AssignToSquad(enemySquad);
+                    return enemySquad;
+
+
+
+                default:
+                    return enemySquad;
             }
-            return enemySquad;
         }
 
-        public BattleController CreateBattle(Squad playerSquad, Squad enemySquad)
-        {
-            return new BattleController(playerSquad, enemySquad);
-        }
+
     }
 }

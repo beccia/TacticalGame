@@ -34,19 +34,22 @@ namespace SquadGameLib.Controller
         public bool RunBattle()
         {
             bool playerWon;
-
+            Console.WriteLine($"Starting Battle against {AiSquad.Name}");
+            Console.WriteLine();
             do
             {
                 BattleOrder = new BattleOrder(PlayerSquad, AiSquad);
-                Console.WriteLine("Starting round " + Round);
-                Console.WriteLine();
 
-                Console.WriteLine("Set stratgy for the next round using the numbered keys");
-                Console.Write(" Offensive = 1, \n Tactical = 2, \n Survival = 3, \n StrongestFirst = 4, \n WeakestFirst =5");
+                Console.WriteLine($"\nSet stratgy for round nr {Round} using the numbered keys: ");
+                Console.Write(" 1 = Offensive , \n 2 = Tactical, \n 3 = Survival \n 4 =  StrongestFirst, \n 5 = WeakestFirst");
                 Console.WriteLine();
 
                 int choice = Convert.ToInt32(Console.ReadLine()) - 1;
                 PlayerSquad.Strategy = (Strategy)choice;
+
+                Console.WriteLine("-----------------------------------------------");
+                Console.WriteLine($"Battle round {Round}:");
+                Console.WriteLine("-----------------------------------------------\n");
 
                 ExecuteRound(BattleOrder);
                 Round++;
@@ -64,10 +67,11 @@ namespace SquadGameLib.Controller
         {
             bool unitSpeedChanged = false;
 
-            foreach (Unit u in CombatActions)
+            foreach (Unit u in CombatActions.ToList())
             {
                 if (u.IsIncapacitated())
                 {
+                    CombatActions.Remove(u);
                     continue;
                 }
                 if (PlayerSquad.isDefeated() || AiSquad.isDefeated())
@@ -75,29 +79,22 @@ namespace SquadGameLib.Controller
                     Console.WriteLine("No targets left.");
                     return;
                 }
-                //get & execute action
                 Unit target;
                 DoAction turnAction = DetermineAction(u, out target);
-
                 turnAction.Invoke(target);
-
+                CombatActions.Remove(u);
 
                 if (unitSpeedChanged)
                 {
-                    CombatActions.SortbySpeed();
+                    CombatActions = (BattleOrder)CombatActions.OrderBy(u => u.Speed).ToList();
                 }
             }
-            Console.WriteLine("Ended fighting of round " + Round + ".");
+            Console.WriteLine("\nEnded fighting of round " + Round + ".");
             Console.WriteLine("-------------------------------------");
    
 
             PlayerSquad.EndOfRoundActions();
             AiSquad.EndOfRoundActions();
-
-
-            Console.WriteLine("-------------------------------------");
-           
-
         }
 
         public DoAction DetermineAction(Unit unit, out Unit target)
@@ -141,7 +138,7 @@ namespace SquadGameLib.Controller
                         return result;
                     }
                 case Strategy.Tactical:
-                    if (unit.Abilities.GetAvailableAbilities(AbilityType.Tactical).Count > 0)
+                    if (unit.Abilities.GetAvailableAbilities(AbilityType.Tactical).Count > 0 || unit.GetType() == typeof(Medic))
                     {
                         result = new DoAction(unit.TacticalAbility);
                         target = GetTarget(unit, Strategy.Tactical);

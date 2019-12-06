@@ -47,7 +47,7 @@ namespace SquadGameLib.StatusEffects
 
         public void Undo()
         {
-            Console.WriteLine($"{Affected.Name} is back in cover and better able to defend himself.");
+            Console.WriteLine(Affected.Hp > 0 ? $"\n{Affected.Name}is back in cover and better able to defend himself." : "");
             Affected.Evasion += EvasionDebuff;
             Affected.Defence += DefenceDebuff;
         }

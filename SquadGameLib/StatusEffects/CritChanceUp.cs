@@ -37,7 +37,7 @@ namespace SquadGameLib.StatusEffects
 
         public void Undo()
         {
-            Console.WriteLine($"{Affected.Name}'s critical hit chance went back to nomral.");
+            Console.Write(Affected.Hp > 0 ? $"\n{Affected.Name}'s critical hit chance went back to normal." : "");
             Affected.CritChance -= CritChanceBuff;
             this.Affected = null;
         }

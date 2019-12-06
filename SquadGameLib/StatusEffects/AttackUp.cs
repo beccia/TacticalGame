@@ -37,7 +37,7 @@ namespace SquadGameLib.StatusEffects
 
         public void Undo()
         {
-            Console.WriteLine($"{Affected.Name}'s offensive power returned to normal.");
+            Console.Write(Affected.Hp > 0 ? $"\n{Affected.Name}'s offensive power returned to normal." : "");
             Affected.AttackPower-= AttackBuff;
             this.Affected = null;
         }

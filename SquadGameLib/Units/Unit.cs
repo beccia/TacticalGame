@@ -14,7 +14,7 @@ namespace SquadGameLib.units
 
         public string Name { get; set; }
 
-        public int MaxHp { get; private set; }
+        public int MaxHp { get; set; }
 
 
         private int _hp;
@@ -28,7 +28,7 @@ namespace SquadGameLib.units
                 _hp = value < 0 ? 0 : value > MaxHp ? MaxHp : value;
                 if (_hp == 0)
                 {
-                    this.Die();
+                    this.Down();
                 }
             }
         
@@ -40,15 +40,19 @@ namespace SquadGameLib.units
         public int Speed { get; set; }
         public int CritChance { get; set; }
 
-        public Squad Assigned { get; private set; }
+        public Squad Assigned { get;  set; }
 
-        public Status StatusEffects { get; private set; }
-        public AbilityList Abilities { get; private set; }
+        public Status StatusEffects { get;  set; }
+        public AbilityList Abilities { get;  set; }
 
 
-        public Unit()
+        public Unit() : this ("Nameless")
         {
-            this.Name = "nameless";
+        }
+
+        public Unit(string name)
+        {
+            this.Name = name;
             this.MaxHp = BaseStats;
             this.Hp = MaxHp;
             this.AttackPower = BaseStats;
@@ -64,8 +68,6 @@ namespace SquadGameLib.units
 
 
 
-
-
         public virtual void Attack(Unit target)
         {
             Console.WriteLine(this.Name + " attacks "+ target.Name + ".");
@@ -76,8 +78,9 @@ namespace SquadGameLib.units
             }
             else
             {
-                //normal attackrange = 75 min, 120 max 
-                int totalDamage = (int)((this.AttackPower - target.Defence) * GetDamageModifyer(75, 120));
+                //normal attackrange = 80 min, 120 max 
+                int totalDamage = (int)((this.AttackPower - target.Defence) * GetDamageModifyer(80, 120));
+                totalDamage = totalDamage < 0 ? 0 : totalDamage;
                 int criticalHitRollResult = CriticalHitDamage(totalDamage);
                 if (criticalHitRollResult <= 0) {
                     Console.WriteLine("Hit target for " + totalDamage + " damage.");
@@ -90,9 +93,8 @@ namespace SquadGameLib.units
                 }
                 target.Hp -= totalDamage;
             }
-
         }
-
+        
         public bool TargetHit(int aim, int evasion)
         {
             Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
@@ -106,10 +108,10 @@ namespace SquadGameLib.units
         {
             Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
             int rgn = rd.Next(0, 100);
-           if (this.CritChance > rgn ? true : false)
+            if (this.CritChance > rgn ? true : false)
             {
                 //range of critical hit: 128 min, 150 max
-                return (int)(normalDamage * GetDamageModifyer(128, 150));
+                return (int)(normalDamage * GetDamageModifyer(135, 155));
             } else
             {
                 return 0;
@@ -140,7 +142,7 @@ namespace SquadGameLib.units
             abilities[0].Use(this, target);
         }
 
-        public void TacticalAbility(Unit target)
+        public virtual void TacticalAbility(Unit target)
         {
             List<Ability> abilities = this.Abilities.GetAvailableAbilities(Enums.AbilityType.Tactical);
             foreach (Ability a in abilities)
@@ -156,14 +158,16 @@ namespace SquadGameLib.units
 
         public void Die()
         {
+            this.StatusEffects.ClearAll();
             this.AddStatusEffect(new Dead(this));
             Console.WriteLine(this.Name + " has died \n");
         }
 
         public void Down()
         {
+            this.StatusEffects.ClearAll();
             this.AddStatusEffect(new Down(this));
-            Console.WriteLine(this.Name + "is wounded and cannot fight anymore and will die without medical assitance soon.");
+            Console.WriteLine(this.Name + " is down and cannot fight anymore.\n");
         }
 
         public void AddStatusEffect(IStatusEffect statusEffect)

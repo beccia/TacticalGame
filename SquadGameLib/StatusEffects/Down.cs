@@ -27,13 +27,19 @@ namespace SquadGameLib.StatusEffects
         }
 
         public void Effect()
-        {
-            Console.WriteLine(Affected.Name + " is lying wounded on the battlefield.");
+        { 
+            Console.WriteLine(Affected.Name + " is lying wounded on the battlefield and needs medical attention fast.");
         }
 
         public void Undo()
         {
-            Console.WriteLine(Affected.Name + " is back on his feet with " + Affected.Hp + " HP.");
+            if (this.Affected.Hp > 0) {
+                Console.WriteLine(Affected.Name + " is back on his feet with " + Affected.Hp + " HP.");
+            } else
+            {
+                this.Affected.AddStatusEffect(new Dead(this.Affected));
+                Console.WriteLine($"{this.Affected.Name} passed away due to his wounds.");
+            }
             Affected = null;
         }
     }

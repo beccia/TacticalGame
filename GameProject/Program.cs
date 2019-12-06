@@ -14,32 +14,31 @@ namespace GameProject
     {
         static void Main(string[] args)
         {
-            //initialize game & player
+            //for test phase: initialize game & player
             GameController gameController = new GameController(4);
             Player player = new Player();
 
-            //setup player squad & 1st enemysquad
+            //for test phase: setup player squad & 1st enemysquad (default parameter = level 1)
             gameController.CreatePlayerSquad(player);
-            Squad enemySquad = gameController.CreateEnemySquad();
+            Squad enemySquad = gameController.CreateEnemySquad(2);
             Console.WriteLine(player.PlayerSquad.ToString());
             Console.WriteLine(enemySquad.ToString());
+            Console.WriteLine("---------------------Squads ready!------------------------------\n");
 
-            // remove 1st tooper and add medic
+
+            // for test phase:  remove 1st tooper and add medic
             player.PlayerSquad[0].UnAssign(player.PlayerSquad);
-            Medic medic1 = new Medic();
-            medic1.Name = "Doc";
+            Medic medic1 = new Medic("Doc");
             medic1.AssignToSquad(player.PlayerSquad);
 
 
             //initizalize battle
             BattleController b1 = new BattleController(player.PlayerSquad, enemySquad);
-            bool playerWOn = b1.RunBattle();
-            Console.WriteLine("Player won: " + playerWOn);
+            bool playerWon = b1.RunBattle();
+            Console.WriteLine(playerWon? "Well done. You whooped some alien ass!" : "Your squad has been defeated. Come back strong and show them who's boss!");
            
 
-
-
-
+            //end
             Console.Write("Press any key to continue");
             Console.ReadKey();
         }

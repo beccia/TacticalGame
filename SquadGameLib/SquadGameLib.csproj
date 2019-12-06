@@ -52,6 +52,7 @@
     <Compile Include="Abilities\AbilityList.cs" />
     <Compile Include="Abilities\Ability.cs" />
     <Compile Include="Abilities\DroneStrike.cs" />
+    <Compile Include="Abilities\AnnihilationBeam.cs" />
     <Compile Include="Abilities\Rush.cs" />
     <Compile Include="Abilities\SupportDrone.cs" />
     <Compile Include="BattleOrder.cs" />

@@ -38,15 +38,18 @@ namespace SquadGameLib.StatusEffects
                 Affected.Evasion -= EvasionDeBuff;
                 Affected.AttackPower -= AttackDeBuff;
                 Applied = true;
-                Console.WriteLine($"{Affected.Name}' is controling a support drone. Evasion and attack power reduced.");
+                Console.WriteLine($"{Affected.Name} is controling a support drone. Evasion and attack power reduced.");
                 ((SpecialOps)this.Affected).DroneDeployed = true;
             }
-            Console.WriteLine($"{Affected.Name}'s support drone is hovering the battlefield, spotting targets for the squad.");
+            else
+            {
+                Console.WriteLine($"{Affected.Name}'s support drone is hovering the battlefield, spotting targets for the squad.");
+            }
         }
 
         public void Undo()
         {
-            Console.WriteLine($"{Affected.Name}'s support drone lands for resupplies & repairs.");
+            Console.WriteLine($"{Affected.Name}'s support drone needs to land and abandons the battlefield.");
             Affected.Evasion += EvasionDeBuff;
             Affected.AttackPower += AttackDeBuff;
             ((SpecialOps)this.Affected).DroneDeployed = false;

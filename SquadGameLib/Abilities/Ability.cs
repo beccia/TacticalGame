@@ -30,7 +30,7 @@ namespace SquadGameLib.Abilities
         {
             if (CooldownCount > 0)
             {
-                this.CooldownTime--;
+                this.CooldownCount--;
             }
         }
 

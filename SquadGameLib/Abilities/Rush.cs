@@ -39,18 +39,19 @@ namespace SquadGameLib.Abilities
         {
             Console.WriteLine($"{actor.Name} uses {this.Name} and  charges straight at the enemy with an all-out offensive rush.");
             // numbers inserted are buff/debuff modifyers, still need to be balanced
-            actor.AddStatusEffect(new AttackUp(actor, StatusEffectsDuration, 26));
+            actor.AddStatusEffect(new AttackUp(actor, StatusEffectsDuration, 28));
             actor.AddStatusEffect(new AimUp(actor, StatusEffectsDuration, 18));
-            actor.AddStatusEffect(new Exposed(actor, StatusEffectsDuration, 20, 18));
+            actor.AddStatusEffect(new Exposed(actor, StatusEffectsDuration, 18, 20));
 
             actor.Attack(target);
             if (RollForExtraAttack(ChanceForExtraAttack))
             {
                 if (target.Assigned.GetViableTargets().Count > 1)
                 {
+                    List<Unit> availableTargets = target.Assigned.GetViableTargets();
                     Console.WriteLine($"{actor.Name} attacks again in charge!");
-                    int index = target.Assigned.GetViableTargets().IndexOf(target);
-                    Unit secondTarget = (index - 1 >= 0) ? target.Assigned[index - 1] : target.Assigned[index + 1];
+                    int index = availableTargets.IndexOf(target);
+                    Unit secondTarget = (index - 1 >= 0) ? availableTargets[index - 1] : availableTargets[index + 1];
                     actor.Attack(secondTarget);
                 }
             }

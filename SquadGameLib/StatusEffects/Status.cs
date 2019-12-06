@@ -32,6 +32,14 @@ namespace SquadGameLib.StatusEffects
             }
         }
 
+        public void ClearAll()
+        {
+            foreach (IStatusEffect s in this.ToList())
+            {
+                Clear(s);
+            }
+        }
+
         public void Clear(IStatusEffect se)
         {
             foreach (IStatusEffect s in this.ToList())

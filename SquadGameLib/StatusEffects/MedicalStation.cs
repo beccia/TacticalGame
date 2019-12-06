@@ -35,15 +35,18 @@ namespace SquadGameLib.StatusEffects
                 Affected.Defence += DefenceBuff;
                 ((Medic)this.Affected).MedSkills += HealBuff;
                 Applied = true;
-                Console.WriteLine($"{Affected.Name}' is controling a support drone. Evasion and attack power reduced.");
+                Console.WriteLine($"Medical station built: healng improved, and {Affected.Name} can heal himself and revive a fallen unit between rounds.\n");
                 ((Medic)this.Affected).HasMedStation = true;
             }
-            Console.WriteLine($"{Affected.Name}'s support drone is hovering the battlefield, spotting targets for the squad.");
+            else
+            {
+                Console.WriteLine($"{Affected.Name}'s medical station is standing and helping the squad's survival.");
+            }
         }
 
         public void Undo()
         {
-            Console.WriteLine($"{Affected.Name}'s support drone lands for resupplies & repairs.");
+            Console.WriteLine($"{Affected.Name}'s repair station broke down in the battle.");
             Affected.Defence -= DefenceBuff;
             ((Medic)this.Affected).MedSkills -= HealBuff;
             ((Medic)this.Affected).HasMedStation = false;

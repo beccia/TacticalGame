@@ -60,11 +60,13 @@ namespace SquadGameLib
         {
             ExecuteSupportActions();
             HandleCounters();
+            Console.WriteLine($"\nStatus report:\n");
             foreach (Unit u in this)
             {
                 u.StatusEffects.ExecuteEffects();
             }
-            
+            Console.WriteLine(this.isDefeated()? "Squad down!" : $"{this.Name} is ready for the next round.");
+            Console.WriteLine("-----------------------------------------");
         }
 
         public void ExecuteSupportActions()
@@ -72,9 +74,8 @@ namespace SquadGameLib
             List<IHealer> supportUnits = new List<IHealer>();
             foreach (Unit u in this)
             {
-                if (u is IHealer)
+                if (u is IHealer && !u.IsIncapacitated())
                 {
-
                     supportUnits.Add((IHealer)u);
                 }
             }
@@ -86,7 +87,6 @@ namespace SquadGameLib
                     healer.Support();
                 }
             }
-            Console.WriteLine($"{this.Name} is finished and ready for the next round of fighting.\n");
         }
 
         public void HandleCounters()
