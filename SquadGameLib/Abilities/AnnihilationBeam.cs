@@ -23,7 +23,7 @@ namespace SquadGameLib.Abilities
 
         public override void Use(Unit actor, Unit target)
         {
-            Console.WriteLine($"{actor.Name} fires {this.Name} on {target.Name}'s squad.");
+            Console.WriteLine($"\n{actor.Name} fires {this.Name} on {target.Name}'s squad.");
             List<Unit> availableTargets = target.Assigned.GetViableTargets();
             foreach (Unit u in availableTargets)
             {

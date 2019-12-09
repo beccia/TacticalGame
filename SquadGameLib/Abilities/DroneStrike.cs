@@ -21,7 +21,7 @@ namespace SquadGameLib.Abilities
         public DroneStrike() : base("Drone strike", 4)
         {
             this.IsPreferred = false;
-            this.BaseDamage = 68;
+            this.BaseDamage = 71;
             this.Type = Enums.AbilityType.Offensive;
         }
 

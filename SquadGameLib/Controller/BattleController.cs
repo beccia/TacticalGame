@@ -18,6 +18,7 @@ namespace SquadGameLib.Controller
         public BattleOrder BattleOrder { get; private set; }
         public int Round { get; private set; }
         public bool Ended { get; private set; }
+        private  int[] AiSquadStrategies { get; set; }
 
         public delegate void DoAction(Unit target);
 
@@ -29,11 +30,24 @@ namespace SquadGameLib.Controller
             this.BattleOrder = new BattleOrder();
             this.Round = 1;
             this.Ended = false;
+            this.AiSquadStrategies = new int[] { 0 };
         }
+
+        public BattleController(Squad playerSquad, Squad enemySquad, int[] aiStrategies)
+        {
+            this.PlayerSquad = playerSquad;
+            this.AiSquad = enemySquad;
+            this.BattleOrder = new BattleOrder();
+            this.Round = 1;
+            this.Ended = false;
+            this.AiSquadStrategies = aiStrategies;
+        }
+
 
         public bool RunBattle()
         {
             bool playerWon;
+            int AiStrategyCounter = 0;
             Console.WriteLine($"Starting Battle against {AiSquad.Name}");
             Console.WriteLine();
             do
@@ -51,8 +65,15 @@ namespace SquadGameLib.Controller
                 Console.WriteLine($"Battle round {Round}:");
                 Console.WriteLine("-----------------------------------------------\n");
 
+                AiSquad.Strategy = (Strategy)AiSquadStrategies[AiStrategyCounter];
+
                 ExecuteRound(BattleOrder);
                 Round++;
+
+                AiStrategyCounter = AiStrategyCounter >= AiSquadStrategies.Length -1 ? 0 : AiStrategyCounter + 1 ;
+                 
+
+
                 if (PlayerSquad.isDefeated() || AiSquad.isDefeated())
                 {
                     Ended = true;
@@ -132,7 +153,15 @@ namespace SquadGameLib.Controller
                         target = GetTarget(unit, Strategy.Survival);
                         return result;
                         // else if has defensive special ability?
-                    } else {
+                    } 
+                    else if (unit.Abilities.GetAvailableAbilities(AbilityType.Survival).Count > 0)
+                    {
+                        result = new DoAction(unit.TacticalAbility);
+                        target = GetTarget(unit, Strategy.Survival);
+                        return result;
+                    } 
+                    else
+                    {
                         result = new DoAction(unit.Attack);
                         target = GetTarget(unit, Strategy.Offensive);
                         return result;

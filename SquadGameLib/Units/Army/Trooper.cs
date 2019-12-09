@@ -37,6 +37,8 @@ namespace SquadGameLib.Units.Army
             this.MedSkills = 18;
             this.MinHealRoll = 85;
             this.MaxHealRoll = 115;
+
+            this.AddAbility(new Grenade(true));
         }
 
         public void Heal(Unit target)

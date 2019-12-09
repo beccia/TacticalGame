@@ -41,6 +41,7 @@ namespace SquadGameLib
             }
         }
 
+
         public Squad CreateEnemySquad(int level = 1)
         {
             Squad enemySquad = new Squad($"Enemy Squad lv.{level}:");
@@ -70,9 +71,62 @@ namespace SquadGameLib
                     shaman.Name = "Alien Shaman";
                     shaman.AssignToSquad(enemySquad);
                     return enemySquad;
+                case 3:
+                    for (int i = 0; i < PlayerSquadSize - 1; i++)
 
+                    {
+                        Unit u = factory.Create();
+                        u.Name = "Grunt nr " + (i + 1);
+                        u.AssignToSquad(enemySquad);
 
+                    }
+                    Unit annihiliator = factory.CreateHeavySoldier();
+                    annihiliator.Name = "Alien Annihilator";
+                    annihiliator.AssignToSquad(enemySquad);
+                    return enemySquad;
+                case 4:
+                    for (int i = 0; i < PlayerSquadSize - 2; i++)
 
+                    {
+                        Unit u = factory.Create();
+                        u.Name = "Grunt nr " + (i + 1);
+                        u.AssignToSquad(enemySquad);
+
+                    }
+                    annihiliator = factory.CreateHeavySoldier();
+                    annihiliator.Name = "Alien Annihilator";
+                    annihiliator.AssignToSquad(enemySquad);
+
+                    shaman = factory.CreateMedicSoldier();
+                    shaman.Name = "Alien Shaman";
+                    shaman.AssignToSquad(enemySquad);
+                    return enemySquad;
+                case 5:
+                    for (int i = 0; i < PlayerSquadSize - 1; i++)
+
+                    {
+                        Unit u = factory.Create();
+                        u.Name = "Grunt nr " + (i + 1);
+                        u.AssignToSquad(enemySquad);
+
+                    }
+                    Unit striker = factory.CreateScout();
+                    striker.Name = "Alien Striker";
+                    striker.AssignToSquad(enemySquad);
+                    return enemySquad;
+
+                case 6:
+                    for (int i = 0; i < PlayerSquadSize - 1; i++)
+
+                    {
+                        Unit u = factory.Create();
+                        u.Name = "Grunt nr " + (i + 1);
+                        u.AssignToSquad(enemySquad);
+                    }
+                    Unit battlelord = factory.CreateTechSoldier();
+                    battlelord.Name = "Alien Battlelord";
+                    battlelord.AssignToSquad(enemySquad);
+                    return enemySquad;
                 default:
                     return enemySquad;
             }

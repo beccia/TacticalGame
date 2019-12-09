@@ -54,8 +54,13 @@
     <Compile Include="Abilities\DroneStrike.cs" />
     <Compile Include="Abilities\AnnihilationBeam.cs" />
     <Compile Include="Abilities\Grenade.cs" />
+    <Compile Include="Abilities\Leech.cs" />
+    <Compile Include="Abilities\MinionShield.cs" />
+    <Compile Include="Abilities\OrbitalStrike.cs" />
     <Compile Include="Abilities\Rush.cs" />
+    <Compile Include="Abilities\SummonMinions.cs" />
     <Compile Include="Abilities\SupportDrone.cs" />
+    <Compile Include="Abilities\TagTarget.cs" />
     <Compile Include="BattleOrder.cs" />
     <Compile Include="Controller\BattleController.cs" />
     <Compile Include="Enums\AbilityType.cs" />
@@ -77,6 +82,7 @@
     <Compile Include="StatusEffects\DroneInAir.cs" />
     <Compile Include="StatusEffects\Exposed.cs" />
     <Compile Include="StatusEffects\IStatusEffect.cs" />
+    <Compile Include="StatusEffects\Leeched.cs" />
     <Compile Include="StatusEffects\MedicalStation.cs" />
     <Compile Include="StatusEffects\Status.cs" />
     <Compile Include="Units\Aliens\Annihilator.cs" />

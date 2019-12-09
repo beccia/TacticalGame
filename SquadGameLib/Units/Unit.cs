@@ -18,7 +18,7 @@ namespace SquadGameLib.units
 
 
         private int _hp;
-        public int Hp {
+        public virtual int Hp {
             get
             {
                 return _hp;
@@ -67,14 +67,12 @@ namespace SquadGameLib.units
         }
 
 
-
         public virtual void Attack(Unit target)
         {
-            Console.WriteLine(this.Name + " attacks "+ target.Name + ".");
+            Console.WriteLine($"\n{this.Name} attacks {target.Name}.");
             if (!TargetHit(this.Aim, target.Evasion))
             {
                 Console.WriteLine("The attack missed " + target.Name + ".");
-                Console.WriteLine();
             }
             else
             {
@@ -84,12 +82,10 @@ namespace SquadGameLib.units
                 int criticalHitRollResult = CriticalHitDamage(totalDamage);
                 if (criticalHitRollResult <= 0) {
                     Console.WriteLine("Hit target for " + totalDamage + " damage.");
-                    Console.WriteLine();
                 } else
                 {
                     totalDamage = criticalHitRollResult;
                     Console.WriteLine($"{this.Name} lands a critical hit target for " + totalDamage + " damage!");
-                    Console.WriteLine();
                 }
                 target.Hp -= totalDamage;
             }
@@ -155,6 +151,7 @@ namespace SquadGameLib.units
             }
             abilities[0].Use(this, target);
         }
+
 
         public void Die()
         {

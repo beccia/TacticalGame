@@ -7,27 +7,36 @@ using System.Threading.Tasks;
 
 namespace SquadGameLib.Abilities
 {
-    class Grenade : Ability
+    class OrbitalStrike : Ability
     {
         private int Chain { get; set; }
         private int BaseDamage { get; set; }
 
         //2nd argument is default cooldown Time
-        public Grenade() : this(false)
+        public OrbitalStrike() : this(false)
         {
         }
 
-        public Grenade(bool isPreferred) : base("Grenade", 3)
+        public OrbitalStrike(bool isPreferred) : base("Orbital Strike", 3)
         {
             this.IsPreferred = isPreferred;
             this.Chain = 0;
-            this.BaseDamage = 43;
+            this.BaseDamage = 74;
+            this.Type = Enums.AbilityType.Offensive;
+        }
+
+        public OrbitalStrike(bool isPreferred, int initialCooldownTime) : base("Orbital Strike", 2)
+        {
+            this.IsPreferred = isPreferred;
+            this.Chain = 0;
+            this.BaseDamage = 72;
+            this.CooldownCount = initialCooldownTime;
             this.Type = Enums.AbilityType.Offensive;
         }
 
         public override void Use(Unit actor, Unit target)
         {
-            Console.WriteLine($"\n{actor.Name} throws a {this.Name} on {target.Name}'s position.");
+            Console.WriteLine($"\n{actor.Name} orders in an {this.Name} on {target.Name}'s position. A heavy bombardment rains down from the sky.");
             List<Unit> availableTargets = target.Assigned.GetViableTargets();
             foreach (Unit u in availableTargets)
             {
@@ -37,7 +46,7 @@ namespace SquadGameLib.Abilities
             Chain = 0;
         }
 
-        public void  DealBlastDamage(Unit target)
+        public void DealBlastDamage(Unit target)
         {
             if (!BlastHit())
             {
@@ -45,9 +54,9 @@ namespace SquadGameLib.Abilities
             }
             else
             {
-                int damage = (BaseDamage - (target.Defence / 9)) - (Chain * 9);
-                double damageModifyer = target.GetDamageModifyer(85, 110);
-                int finalDamage = (int) (damage * damageModifyer);
+                int damage = (BaseDamage - (target.Defence / 9)) - (Chain * 8);
+                double damageModifyer = target.GetDamageModifyer(80, 110);
+                int finalDamage = (int)(damage * damageModifyer);
                 Console.WriteLine($"{target.Name} takes {finalDamage} blast damage.");
                 target.Hp -= finalDamage;
             }
@@ -58,9 +67,8 @@ namespace SquadGameLib.Abilities
         {
             Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
             int rgn = rd.Next(0, 100);
-            int hitChance = 95 - (Chain * 20);
+            int hitChance = 95 - (Chain * 12);
             return hitChance > rgn ? true : false;
         }
-
     }
 }

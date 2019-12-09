@@ -35,7 +35,7 @@ namespace SquadGameLib.StatusEffects
 
         public void Undo()
         { 
-            Console.Write(Affected.Hp > 0?  $"\n{Affected.Name}'s capability to hit targets returned to normal." : "");
+            Console.Write(Affected.Hp > 0?  $"\n{Affected.Name}'s boost to to accuracy wore off." : "");
             Affected.Aim -= AimBuff;
             this.Affected = null;
         }

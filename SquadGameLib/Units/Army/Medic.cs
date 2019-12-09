@@ -50,9 +50,9 @@ namespace SquadGameLib.Units.Army
             {
                 Unit healTarget = downed[0];
                 int healAmount = RollHealAmount();
+                Console.WriteLine(this.Name + " runs over to the rescue and is able to raise " + healTarget.Name + ".");
                 healTarget.Hp += healAmount;
                 healTarget.StatusEffects.Clear(new Down());
-                Console.WriteLine(this.Name + " runs over to the rescue and is able to raise " + healTarget.Name +".");
             }
             else
             {
@@ -92,8 +92,8 @@ namespace SquadGameLib.Units.Army
                 {
                     Unit healTarget = downed[0];
                     healTarget.Hp += (int)(healTarget.MaxHp /3.333);
-                    healTarget.StatusEffects.Clear(new Down());
                     Console.WriteLine($"{this.Name} gives {healTarget.Name} emercency treating in the medical station and raises him with {healTarget.Hp} HP.");
+                    healTarget.StatusEffects.Clear(new Down());
                 }
                 if (this.Hp < this.MaxHp) {
                     int healAmount = RollHealAmount();

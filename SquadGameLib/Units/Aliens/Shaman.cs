@@ -36,10 +36,12 @@ namespace SquadGameLib.Units.Aliens
             this.StatusEffects = new Status();
             this.Abilities = new AbilityList();
 
-            this.MedSkills = 36;
+            this.MedSkills = 38;
             this.MinHealRoll = 70;
-            this.MaxHealRoll = 123;
+            this.MaxHealRoll = 126;
             this.ReviveChance= 60;
+
+            this.AddAbility(new Leech(true)); ;
         }
 
         public override void Attack(Unit target)

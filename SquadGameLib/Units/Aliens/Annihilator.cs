@@ -18,17 +18,19 @@ namespace SquadGameLib.Units.Aliens
         public Annihilator(string name)
         {
             this.Name = name;
-            this.MaxHp = (int)(BaseStats * 1.3);
+            this.MaxHp = (int)(BaseStats * 1.34);
             this.Hp = MaxHp;
-            this.AttackPower = (int)(BaseStats * 1.25);
-            this.Defence = (int)(BaseStats * 0.74);
-            this.Aim = (int)(BaseStats * 0.82);
-            this.Evasion = (int)(BaseStats / 2.9);
+            this.AttackPower = (int)(BaseStats * 1.27);
+            this.Defence = (int)(BaseStats * 0.76);
+            this.Aim = (int)(BaseStats * 0.81);
+            this.Evasion = (int)(BaseStats / 3.2);
             this.Speed = (int)(BaseStats * 0.7);
             this.CritChance = BaseStats / 14;
             this.Assigned = null;
             this.StatusEffects = new Status();
             this.Abilities = new AbilityList();
+
+            this.AddAbility(new AnnihilationBeam(true));
         }
     }
 }

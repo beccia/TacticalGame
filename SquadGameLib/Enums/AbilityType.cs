@@ -9,6 +9,7 @@ namespace SquadGameLib.Enums
     public enum AbilityType
     {
         Offensive,
-        Tactical
+        Tactical,
+        Survival
     }
 }
