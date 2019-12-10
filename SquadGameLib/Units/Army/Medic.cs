@@ -11,6 +11,7 @@ namespace SquadGameLib.Units.Army
 {
     public class Medic : Unit, IHealer
     {
+        private const string className = "Medic";
         public int MedSkills { get; set; }
         public int MinHealRoll { get; private set; }
         public int MaxHealRoll { get; private set; }
@@ -23,6 +24,7 @@ namespace SquadGameLib.Units.Army
 
         public Medic(string name)
         {
+            this.ClassName = className;
             this.Name = name;
             this.MaxHp = (int)(BaseStats * 0.85);
             this.Hp = MaxHp;
@@ -114,6 +116,20 @@ namespace SquadGameLib.Units.Army
             {
                 this.Attack(target);
             }
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder($"{this.ClassName} {this.Name}\n");
+            sb.Append($"\nStats---- \n" +
+                $"HP: {this.Hp}\nAttack: {this.AttackPower}\nDefence: {this.Defence}\nAim: {this.Aim}\nEvasion: {this.Evasion}\nSpeed: {this.Speed}\nCrit Chance: {this.CritChance}\n");
+            sb.Append("\nSpecial abilities:");
+            foreach (Ability a in this.Abilities)
+            {
+                sb.Append($"\n{a.ToString()}");
+            }
+            sb.Append($"-------------- -\nBuild Medical station\nCooldown time: none\nType: Tactical\nDescription: Builds a medstation which lasts several turns & improves healing capabilities & defence.");
+            return sb.ToString();
         }
     }
 }

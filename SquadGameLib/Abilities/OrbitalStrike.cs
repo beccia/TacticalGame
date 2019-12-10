@@ -9,27 +9,21 @@ namespace SquadGameLib.Abilities
 {
     class OrbitalStrike : Ability
     {
+        private const string description = "An orbital strike, dealing devastating damage to the entire squad. Can be used after 2 turns.";
+        private const int defaultCooldownTime = 3;
+        private const int initialCooldownTime = 3;
+        private int baseDamage = 78;
         private int Chain { get; set; }
-        private int BaseDamage { get; set; }
-
-        //2nd argument is default cooldown Time
+     
         public OrbitalStrike() : this(false)
         {
         }
 
-        public OrbitalStrike(bool isPreferred) : base("Orbital Strike", 3)
+        public OrbitalStrike(bool isPreferred) : base("Orbital Strike", defaultCooldownTime)
         {
+            this.Description = description;
             this.IsPreferred = isPreferred;
             this.Chain = 0;
-            this.BaseDamage = 74;
-            this.Type = Enums.AbilityType.Offensive;
-        }
-
-        public OrbitalStrike(bool isPreferred, int initialCooldownTime) : base("Orbital Strike", 2)
-        {
-            this.IsPreferred = isPreferred;
-            this.Chain = 0;
-            this.BaseDamage = 72;
             this.CooldownCount = initialCooldownTime;
             this.Type = Enums.AbilityType.Offensive;
         }
@@ -54,7 +48,7 @@ namespace SquadGameLib.Abilities
             }
             else
             {
-                int damage = (BaseDamage - (target.Defence / 9)) - (Chain * 8);
+                int damage = (baseDamage - ((int)(target.Defence / 6.3))) - (Chain * 8);
                 double damageModifyer = target.GetDamageModifyer(80, 110);
                 int finalDamage = (int)(damage * damageModifyer);
                 Console.WriteLine($"{target.Name} takes {finalDamage} blast damage.");
@@ -67,7 +61,7 @@ namespace SquadGameLib.Abilities
         {
             Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
             int rgn = rd.Next(0, 100);
-            int hitChance = 95 - (Chain * 12);
+            int hitChance = 95 - (Chain * 9);
             return hitChance > rgn ? true : false;
         }
     }

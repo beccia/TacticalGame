@@ -9,14 +9,15 @@ namespace SquadGameLib.Abilities
 {
     class AnnihilationBeam : Ability
     {
-
-        //2nd argument is default cooldown Time
+        private const string description = "Powerful laser gatling gun attack dealing high damage to all enemies";
+        private const int defaultCooldownTime = 3;
         public AnnihilationBeam() : this(false)
         {
         }
 
-        public AnnihilationBeam(bool isPreferred) : base("Annihilator Beam", 4)
+        public AnnihilationBeam(bool isPreferred) : base("Annihilator Beam", defaultCooldownTime)
         {
+            this.Description = description;
             this.IsPreferred = isPreferred;
             this.Type = Enums.AbilityType.Offensive;
         }

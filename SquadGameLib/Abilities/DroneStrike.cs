@@ -13,20 +13,19 @@ namespace SquadGameLib.Abilities
      */
     public class DroneStrike : Ability
     {
+        private const string description = "Drone must be in the air to use. Launches a powerful missile strike on tactically chosen enemy.";
+        private const int baseDamage = 74;
+        private const int defaultCooldownTime = 4;
 
-        public int BaseDamage { get; private set; }
-        public int StatusEffectsDuration { get; private set; }
-
-        //2nd argument is default cooldown Time
-        public DroneStrike() : base("Drone strike", 4)
+        public DroneStrike() : this(false)
         {
             this.IsPreferred = false;
-            this.BaseDamage = 71;
             this.Type = Enums.AbilityType.Offensive;
         }
 
-        public DroneStrike(bool isPreferred) : base("Drone strike", 4)
+        public DroneStrike(bool isPreferred) : base("Drone strike", defaultCooldownTime)
         {
+            this.Description = description;
             this.IsPreferred = isPreferred;
             this.Type = Enums.AbilityType.Offensive;
         }
@@ -65,7 +64,7 @@ namespace SquadGameLib.Abilities
 
         public int GetPrimaryTargetDamage(Unit target)
         {
-            int statDamage = BaseDamage - (target.Defence / 3);
+            int statDamage = baseDamage - (int)(target.Defence / 7.4);
             int totalDamage = (int) (statDamage * target.GetDamageModifyer(85, 110));
             return totalDamage;
         }
@@ -77,7 +76,7 @@ namespace SquadGameLib.Abilities
             {
                 int index = availableTargets.IndexOf(target);
                 Unit secondaryTarget = (index - 1 >= 0) ? availableTargets[index - 1] : availableTargets[index + 1];
-                int statDamage = (BaseDamage / 2) - (target.Defence / 3);
+                int statDamage = (int)((baseDamage / 1.64) - (target.Defence / 7.4));
                 int totalDamage = (int)(statDamage * target.GetDamageModifyer(85, 110));
 
                 Console.WriteLine($"{secondaryTarget.Name} gets caught in the blast and takes {totalDamage} damage.");

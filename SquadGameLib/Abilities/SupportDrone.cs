@@ -13,34 +13,34 @@ namespace SquadGameLib.Abilities
 
     public class SupportDrone : Ability
     {
-        public int StatusEffectsDuration { get; private set; }
-        public int AimBuff { get; private set; }
-        public int CritChanceBuff { get; private set; }
+        private const string description = "Launches a drone which spots enemies for the squad, raising both aim and critical hit chance stats.";
+        private const int defaultCooldownTime = 4;
+        public const int statusEffectsDuration = 3;
+        public const int aimBuff = 21;
+        public const int critChanceBuff = 14;
 
         
         public SupportDrone() : this(false)
         {}
 
         //2nd argument is default cooldown Time
-        public SupportDrone(bool isPreferred) : base("Support drone", 4)
+        public SupportDrone(bool isPreferred) : base("Support Drone", defaultCooldownTime)
         {
+            this.Description = description;
             this.IsPreferred = isPreferred;
-            this.StatusEffectsDuration = 3;
-            this.AimBuff = 21;
-            this.CritChanceBuff = 11;
             this.Type = Enums.AbilityType.Tactical;
         }
 
         public override void Use(Unit actor, Unit target)
         {
-            Console.WriteLine($"{actor.Name} launches a drone near {target.Name}'s position which spots enemies for the squad, allowing friendly units to hit tagets and score critical hits more easily");
+            Console.WriteLine($"{actor.Name} launches a drone near {target.Name}'s position which spots enemies for the squad, allowing friendly units to hit tagets and score critical hits more easily.");
             foreach (Unit u in actor.Assigned.GetViableTargets())
             {
-                u.AddStatusEffect(new AimUp(u, StatusEffectsDuration, AimBuff));
-                u.AddStatusEffect(new CritChanceUp(u, StatusEffectsDuration, CritChanceBuff));
+                u.AddStatusEffect(new AimUp(u, statusEffectsDuration, aimBuff));
+                u.AddStatusEffect(new CritChanceUp(u, statusEffectsDuration, critChanceBuff));
             }
             actor.AddStatusEffect(new DroneInAir(actor, 3));
+            this.CooldownCount = this.CooldownTime;
         }
-
     }
 }

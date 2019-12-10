@@ -47,6 +47,7 @@ namespace SquadGameLib.StatusEffects
                if (s.GetType() == se.GetType()) { 
                     this.Remove(s);
                     s.Undo();
+                    break;
                 }
             }
         }

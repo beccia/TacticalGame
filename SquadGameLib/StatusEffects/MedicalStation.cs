@@ -22,8 +22,8 @@ namespace SquadGameLib.StatusEffects
         {
             this.Affected = affected;
             this.RemainingTime = remainingTime;
-            this.HealBuff = 25;
-            this.DefenceBuff = 18;
+            this.HealBuff = 24;
+            this.DefenceBuff = 19;
             Applied = false;
             Effect();
         }

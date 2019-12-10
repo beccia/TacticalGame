@@ -65,7 +65,7 @@ namespace SquadGameLib
             {
                 u.StatusEffects.ExecuteEffects();
             }
-            Console.WriteLine(this.isDefeated()? "Squad down!" : $"{this.Name} is ready for the next round.");
+            Console.WriteLine(this.isDefeated()? "\nSquad down!" : $"\n{this.Name} is ready for the next round.");
             Console.WriteLine("-----------------------------------------");
         }
 
@@ -102,9 +102,13 @@ namespace SquadGameLib
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.Append($"Squadname : {Name} \n Units: {this.Count} \n Strategy: {Strategy}");
+            sb.Append($"Squadname: {Name}\nUnits: {this.Count}\n");
+            int count = 1; 
+            foreach (Unit u in this) {
+                sb.Append($"\nUnit {count}: \n{u.ToString()}\n-----------------------------------------\n");
+                count++;
+            }
             return sb.ToString();
-
         }
     }
 }

@@ -11,6 +11,7 @@ namespace SquadGameLib.Units.Aliens
 {
     public class BattleLord : Unit
     {
+        private const string className = "Battle Lord";
         private int _previousHp;
         private int _hp; 
         public override int Hp
@@ -21,15 +22,19 @@ namespace SquadGameLib.Units.Aliens
             }
             set
             {
-                if (_minionGuards.Count > 0)
+                List<Unit> availableMinions = _minionGuards.FindAll(m => m.Hp > 0);
+                if (availableMinions.Count > 0)
                 {
                     _previousHp = _hp;
                     int damageDealt = _previousHp - value;
-                    int damagePU = damageDealt / MinionGuards.Count;
-                    Console.WriteLine($"{this.Name}'s minions take the dmaage for him and lose {damagePU} Hp each!");
-                    foreach (Unit minion in MinionGuards.ToList())
+                    int damagePU = damageDealt / availableMinions.Count;
+                    Console.WriteLine($"{this.Name}'s minions take the damage for him and lose {damagePU} Hp each!");
+                    foreach (Unit minion in availableMinions.ToList())
                     {
                         minion.Hp -= damagePU;
+                    }
+                    foreach (Unit minion in MinionGuards.ToList())
+                    {
                         if (minion.Hp <= 0)
                         {
                             MinionGuards.Remove(minion);
@@ -66,11 +71,13 @@ namespace SquadGameLib.Units.Aliens
         }
 
         public BattleLord(string name)
-        { 
+        {
+
+            this.ClassName = className;
             this.Name = name;
             this.MaxHp = (int)(BaseStats * 1.17);
             this.Hp = MaxHp;
-            this.AttackPower = (int)(BaseStats * 0.92);
+            this.AttackPower = (int)(BaseStats * 0.91);
             this.Defence = (int)(BaseStats * 0.52);
             this.Aim = (int)(BaseStats * 0.88);
             this.Evasion = (int)(BaseStats / 2.4);
@@ -83,6 +90,7 @@ namespace SquadGameLib.Units.Aliens
 
             this.AddAbility(new SummonMinions(true));
             this.AddAbility(new MinionShield(true));
+            this.AddAbility(new BattleCommand(true));
         }
 
 

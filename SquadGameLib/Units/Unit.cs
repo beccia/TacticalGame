@@ -11,8 +11,14 @@ namespace SquadGameLib.units
     public abstract class Unit
     {
         public readonly int BaseStats = 100;
+        public const int minimumAttackDmg = 86;
+        public const int maximumAttackDmg = 118;
+        public const int minimumCritDmg = 133;
+        public const int maximumCritDmg = 154;
+        public const double evasionModifyer = 0.6;
 
         public string Name { get; set; }
+        public string ClassName { get; set; }
 
         public int MaxHp { get; set; }
 
@@ -46,12 +52,13 @@ namespace SquadGameLib.units
         public AbilityList Abilities { get;  set; }
 
 
-        public Unit() : this ("Nameless")
+        public Unit() : this ("Nameless", "Unknown")
         {
         }
 
-        public Unit(string name)
+        public Unit(string name, string className)
         {
+            this.ClassName = className;
             this.Name = name;
             this.MaxHp = BaseStats;
             this.Hp = MaxHp;
@@ -69,23 +76,22 @@ namespace SquadGameLib.units
 
         public virtual void Attack(Unit target)
         {
-            Console.WriteLine($"\n{this.Name} attacks {target.Name}.");
+            Console.WriteLine($"{this.Name} attacks {target.Name}.");
             if (!TargetHit(this.Aim, target.Evasion))
             {
-                Console.WriteLine("The attack missed " + target.Name + ".");
+                Console.WriteLine("The attack missed " + target.Name + ".\n");
             }
             else
             {
-                //normal attackrange = 80 min, 120 max 
-                int totalDamage = (int)((this.AttackPower - target.Defence) * GetDamageModifyer(80, 120));
+                int totalDamage = (int)((this.AttackPower - target.Defence) * GetDamageModifyer(minimumAttackDmg, maximumAttackDmg));
                 totalDamage = totalDamage < 0 ? 0 : totalDamage;
                 int criticalHitRollResult = CriticalHitDamage(totalDamage);
                 if (criticalHitRollResult <= 0) {
-                    Console.WriteLine("Hit target for " + totalDamage + " damage.");
+                    Console.WriteLine("Hit target for " + totalDamage + " damage.\n");
                 } else
                 {
                     totalDamage = criticalHitRollResult;
-                    Console.WriteLine($"{this.Name} lands a critical hit target for " + totalDamage + " damage!");
+                    Console.WriteLine($"{this.Name} lands a critical hit target for " + totalDamage + " damage!\n");
                 }
                 target.Hp -= totalDamage;
             }
@@ -95,8 +101,7 @@ namespace SquadGameLib.units
         {
             Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
             int rgn = rd.Next(0, 100);
-            // evasion modifyer 0.6 test and edit if needed 
-            int statsResult = aim - (int)(evasion * 0.6);
+            int statsResult = aim - (int)(evasion * evasionModifyer);
             return statsResult > rgn ? true : false;
         }
 
@@ -106,8 +111,7 @@ namespace SquadGameLib.units
             int rgn = rd.Next(0, 100);
             if (this.CritChance > rgn ? true : false)
             {
-                //range of critical hit: 128 min, 150 max
-                return (int)(normalDamage * GetDamageModifyer(135, 155));
+                return (int)(normalDamage * GetDamageModifyer(minimumCritDmg, maximumCritDmg));
             } else
             {
                 return 0;
@@ -121,8 +125,6 @@ namespace SquadGameLib.units
             double modifyer = rd.Next(min, max) / 100.00;
             return modifyer;
         }
-
-
 
         public void SpecialAttack(Unit target)
         {
@@ -152,19 +154,18 @@ namespace SquadGameLib.units
             abilities[0].Use(this, target);
         }
 
-
         public void Die()
         {
             this.StatusEffects.ClearAll();
             this.AddStatusEffect(new Dead(this));
-            Console.WriteLine(this.Name + " has died \n");
+            Console.WriteLine("${this.Name} has died.\n");
         }
 
         public void Down()
         {
             this.StatusEffects.ClearAll();
             this.AddStatusEffect(new Down(this));
-            Console.WriteLine(this.Name + " is down and cannot fight anymore.\n");
+            Console.WriteLine($"{this.Name} is down and cannot fight anymore.\n");
         }
 
         public void AddStatusEffect(IStatusEffect statusEffect)
@@ -180,9 +181,6 @@ namespace SquadGameLib.units
         {
             this.Abilities.Add(ability);
         }
-
-
-
 
         public bool IsIncapacitated()
         {
@@ -203,6 +201,19 @@ namespace SquadGameLib.units
         {
             squad.Remove(this);
             this.Assigned = null;
+        }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder($"{this.ClassName} {this.Name}\n");
+            sb.Append($"\nStats---- \n" +
+                $"HP: {this.Hp}\nAttack: {this.AttackPower}\nDefence: {this.Defence}\nAim: {this.Aim}\nEvasion: {this.Evasion}\nSpeed: {this.Speed}\nCrit Chance: {this.CritChance}\n");
+            sb.Append("\nSpecial abilities:");
+            foreach (Ability a in this.Abilities)
+            {
+                sb.Append($"\n{a.ToString()}");
+            }
+            return sb.ToString();
         }
     }
 

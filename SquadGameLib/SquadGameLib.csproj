@@ -51,6 +51,9 @@
   <ItemGroup>
     <Compile Include="Abilities\AbilityList.cs" />
     <Compile Include="Abilities\Ability.cs" />
+    <Compile Include="Abilities\Barrage.cs" />
+    <Compile Include="Abilities\BattleCommand.cs" />
+    <Compile Include="Abilities\CoveringFire.cs" />
     <Compile Include="Abilities\DroneStrike.cs" />
     <Compile Include="Abilities\AnnihilationBeam.cs" />
     <Compile Include="Abilities\Grenade.cs" />
@@ -76,6 +79,7 @@
     <Compile Include="Squad.cs" />
     <Compile Include="StatusEffects\AimUp.cs" />
     <Compile Include="StatusEffects\AttackUp.cs" />
+    <Compile Include="StatusEffects\CooldownBonus.cs" />
     <Compile Include="StatusEffects\CritChanceUp.cs" />
     <Compile Include="StatusEffects\Dead.cs" />
     <Compile Include="StatusEffects\Down.cs" />
@@ -85,6 +89,7 @@
     <Compile Include="StatusEffects\Leeched.cs" />
     <Compile Include="StatusEffects\MedicalStation.cs" />
     <Compile Include="StatusEffects\Status.cs" />
+    <Compile Include="StatusEffects\Suppressed.cs" />
     <Compile Include="Units\Aliens\Annihilator.cs" />
     <Compile Include="Units\Aliens\BattleLord.cs" />
     <Compile Include="Units\Aliens\Grunt.cs" />
@@ -95,7 +100,6 @@
     <Compile Include="Units\Army\Sniper.cs" />
     <Compile Include="Units\Army\SpecialOps.cs" />
     <Compile Include="Units\Army\Trooper.cs" />
-    <Compile Include="Units\IHardToHit.cs" />
     <Compile Include="Units\IHealer.cs" />
     <Compile Include="Units\Unit.cs" />
   </ItemGroup>

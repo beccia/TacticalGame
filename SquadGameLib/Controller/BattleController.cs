@@ -43,7 +43,6 @@ namespace SquadGameLib.Controller
             this.AiSquadStrategies = aiStrategies;
         }
 
-
         public bool RunBattle()
         {
             bool playerWon;
@@ -71,9 +70,6 @@ namespace SquadGameLib.Controller
                 Round++;
 
                 AiStrategyCounter = AiStrategyCounter >= AiSquadStrategies.Length -1 ? 0 : AiStrategyCounter + 1 ;
-                 
-
-
                 if (PlayerSquad.isDefeated() || AiSquad.isDefeated())
                 {
                     Ended = true;

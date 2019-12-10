@@ -11,13 +11,15 @@ namespace SquadGameLib.Units.Aliens
 {
     public class Striker : Unit
     {
-        public Striker() : this("unnamed Striker")
+        private const string className = "Striker";
+        public Striker() : this("Unnamed Striker")
         {
 
         }
 
         public Striker(string name)
         {
+            this.ClassName = className;
             this.Name = name;
             this.MaxHp = (int)(BaseStats * 0.8);
             this.Hp = MaxHp;
@@ -32,8 +34,8 @@ namespace SquadGameLib.Units.Aliens
             this.Abilities = new AbilityList();
 
             //second arguent inside new OrbitalStrike is the start value of the cooldown timer 
-            this.AddAbility(new OrbitalStrike(true, 3));
-            this.AddAbility(new TagTarget(true, 24, 2));
+            this.AddAbility(new OrbitalStrike(true));
+            this.AddAbility(new TagTarget(true));
         }
     }
 }

@@ -13,16 +13,19 @@ namespace SquadGameLib.Units.Aliens
      */
     public class Shaman : Unit, IHealer
     {
+        private const string className = "Shaman";
         public int MedSkills { get; set; }
         private int MinHealRoll { get; set; }
         private int MaxHealRoll { get; set; }
         private int ReviveChance { get; set; }
+
         public Shaman() : this("Nameless Shaman")
         {
         }
 
         public Shaman(string name)
         {
+            this.ClassName = className; 
             this.Name = name;
             this.MaxHp = (int)(BaseStats * 0.85);
             this.Hp = MaxHp;

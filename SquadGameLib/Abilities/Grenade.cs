@@ -9,19 +9,20 @@ namespace SquadGameLib.Abilities
 {
     class Grenade : Ability
     {
+        private const string description = "Throws a grenade dealing damage to multiple enemies which decreases further from the impact.";
+        private const int defaultCooldownTime = 3;
+        private const int baseDamage = 43;
         private int Chain { get; set; }
-        private int BaseDamage { get; set; }
 
-        //2nd argument is default cooldown Time
         public Grenade() : this(false)
         {
         }
 
-        public Grenade(bool isPreferred) : base("Grenade", 3)
+        public Grenade(bool isPreferred) : base("Grenade", defaultCooldownTime)
         {
+            this.Description = description;
             this.IsPreferred = isPreferred;
             this.Chain = 0;
-            this.BaseDamage = 43;
             this.Type = Enums.AbilityType.Offensive;
         }
 
@@ -45,7 +46,7 @@ namespace SquadGameLib.Abilities
             }
             else
             {
-                int damage = (BaseDamage - (target.Defence / 9)) - (Chain * 9);
+                int damage = (baseDamage - (target.Defence / 9)) - (Chain * 9);
                 double damageModifyer = target.GetDamageModifyer(85, 110);
                 int finalDamage = (int) (damage * damageModifyer);
                 Console.WriteLine($"{target.Name} takes {finalDamage} blast damage.");
@@ -58,7 +59,7 @@ namespace SquadGameLib.Abilities
         {
             Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
             int rgn = rd.Next(0, 100);
-            int hitChance = 95 - (Chain * 20);
+            int hitChance = 95 - (Chain * 19);
             return hitChance > rgn ? true : false;
         }
 

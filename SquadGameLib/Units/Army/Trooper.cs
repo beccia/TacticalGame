@@ -11,6 +11,7 @@ namespace SquadGameLib.Units.Army
 {
     public class Trooper : Unit, IHealer
     {
+        private const string className = "Trooper";
         public int MedSkills { get; set; }
         public int MinHealRoll { get; private set; }
         public int MaxHealRoll { get; private set; }
@@ -21,14 +22,15 @@ namespace SquadGameLib.Units.Army
 
         public Trooper(string name)
         {
+            this.ClassName = className;
             this.Name = name;
             this.MaxHp = BaseStats;
             this.Hp = MaxHp;
-            this.AttackPower = BaseStats;
-            this.Defence = (int)(BaseStats * 0.7);
+            this.AttackPower = this.Defence = (int)(BaseStats * 0.98);
+            this.Defence = (int)(BaseStats * 0.68);
             this.Aim = BaseStats;
             this.Evasion = (int)(BaseStats / 1.96);
-            this.Speed = (int)(BaseStats * 1.12);
+            this.Speed = (int)(BaseStats * 1.09);
             this.CritChance = BaseStats / 12;
             this.Assigned = null;
             this.StatusEffects = new Status();
@@ -45,7 +47,7 @@ namespace SquadGameLib.Units.Army
         { 
             int healAmount = RollHealAmount();
             this.Hp += healAmount;
-                 Console.WriteLine(this.Name + " uses a medkit and is able to restore " + healAmount + "HP to himself.");
+                 Console.WriteLine(this.Name + " uses a medkit and is able to restore " + healAmount + " HP to himself.");
         }
 
         public int RollHealAmount() { 
@@ -63,7 +65,7 @@ namespace SquadGameLib.Units.Army
                 Unit healTarget = (index - 1 >= 0) ? availableTargets[index - 1] : availableTargets[index + 1];
                 int healAmount = RollHealAmount();
                 healTarget.Hp += healAmount;
-                Console.WriteLine(this.Name + " uses a medkit on a nearby unit and is able to restore " + healAmount + "HP to " + healTarget.Name + ".");
+                Console.WriteLine(this.Name + " uses a medkit on a nearby unit and is able to restore " + healAmount + " HP to " + healTarget.Name + ".");
             }
         }
     }

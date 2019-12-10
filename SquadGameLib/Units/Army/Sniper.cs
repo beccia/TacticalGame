@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace SquadGameLib.Units.Army
 {
-    public class Sniper : Unit, IHardToHit
-    {
+    public class Sniper : Unit
+    { 
         public Unit targetInSight { get; private set; }
 
         public Sniper() : base()

@@ -11,22 +11,22 @@ namespace SquadGameLib.Abilities
 {
     public class Leech : Ability
     {
-        private int SuccessChance{ get; set; }
-        private int StatusEffectsDuration { get;  set; }
+        private const string description = "If succesfull, passively steals HP from target for a few turns.";
+        private const int successChance = 72;
+        private const int statusEffectsDuration = 3;
+        private const int defaultCooldownTime = 4;
 
-        //2nd argument is default cooldown Time
+
         public Leech() : this(false)
         {
             this.IsPreferred = false;
-            this.StatusEffectsDuration = 3;
             this.Type = Enums.AbilityType.Offensive;
         }
 
-        public Leech(bool isPreferred) : base("Leech attack", 3)
+        public Leech(bool isPreferred) : base("Leech attack", defaultCooldownTime)
         {
+            this.Description = description;
             this.IsPreferred = isPreferred;
-            this.SuccessChance = 72;
-            this.StatusEffectsDuration = 3;
             this.Type = Enums.AbilityType.Offensive;
         }
 
@@ -40,7 +40,7 @@ namespace SquadGameLib.Abilities
             }
             else
             {
-                leechTarget.AddStatusEffect(new Leeched(leechTarget, (Shaman)actor, 3));
+                leechTarget.AddStatusEffect(new Leeched(leechTarget, (Shaman)actor, statusEffectsDuration));
             }
             this.CooldownCount = this.CooldownTime;
         }
@@ -63,7 +63,7 @@ namespace SquadGameLib.Abilities
         {
             Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
             int rgn = rd.Next(0, 100);
-            return this.SuccessChance > rgn ? true : false;
+            return successChance > rgn ? true : false;
         }
     }
 }
