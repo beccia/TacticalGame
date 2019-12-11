@@ -12,7 +12,7 @@ namespace SquadGameLib.Abilities
         private const string description = "An orbital strike, dealing devastating damage to the entire squad. Can be used after 2 turns.";
         private const int defaultCooldownTime = 3;
         private const int initialCooldownTime = 3;
-        private int baseDamage = 78;
+        private const int baseDamage = 79;
         private int Chain { get; set; }
      
         public OrbitalStrike() : this(false)
@@ -48,8 +48,8 @@ namespace SquadGameLib.Abilities
             }
             else
             {
-                int damage = (baseDamage - ((int)(target.Defence / 6.3))) - (Chain * 8);
-                double damageModifyer = target.GetDamageModifyer(80, 110);
+                int damage = (baseDamage - ((int)(target.Defence / 6.3))) - (Chain * 7);
+                double damageModifyer = target.GetDamageModifyer(85, 112);
                 int finalDamage = (int)(damage * damageModifyer);
                 Console.WriteLine($"{target.Name} takes {finalDamage} blast damage.");
                 target.Hp -= finalDamage;
@@ -61,7 +61,7 @@ namespace SquadGameLib.Abilities
         {
             Random rd = new Random(int.Parse(Guid.NewGuid().ToString().Substring(0, 8), System.Globalization.NumberStyles.HexNumber));
             int rgn = rd.Next(0, 100);
-            int hitChance = 95 - (Chain * 9);
+            int hitChance = 95 - (Chain * 8);
             return hitChance > rgn ? true : false;
         }
     }

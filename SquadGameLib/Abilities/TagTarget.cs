@@ -48,7 +48,7 @@ namespace SquadGameLib.Abilities
                         buffTarget = u;
                     }
                 }
-                buffTarget.AddStatusEffect(new AimUp(buffTarget, statusEffectsDuration, aimBuff)); ;
+                buffTarget.AddStatusEffect(new AimUp(statusEffectsDuration, aimBuff)); ;
                 this.CooldownCount = this.CooldownTime;
             }
         }

@@ -18,15 +18,12 @@ namespace SquadGameLib.StatusEffects
         private bool Applied;
 
 
-        public Suppressed(Unit affected, int remainingTime, int aimDebuff, int attackDebuff, int critChanceDebuff)
+        public Suppressed(int remainingTime, int aimDebuff, int attackDebuff, int critChanceDebuff)
         {
-            this.Affected = affected;
             this.RemainingTime = remainingTime;
             this.AimDebuff = aimDebuff;
             this.CritChanceDebuff = critChanceDebuff;
             Applied = false;
-            Effect();
-            Console.WriteLine($"{Affected.Name} is suppressed by heavy fire. Aiming, attack power & critical hit chance are lowered.");
         }
 
         public void Effect()
@@ -37,6 +34,7 @@ namespace SquadGameLib.StatusEffects
                 Affected.AttackPower-= AttackDebuff;
                 Affected.CritChance -= CritChanceDebuff;
                 Applied = true;
+                Console.WriteLine($"{Affected.Name} is suppressed by heavy fire. Aiming, attack power & critical hit chance are lowered.");
             }
             else
             {

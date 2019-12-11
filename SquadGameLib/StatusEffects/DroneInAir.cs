@@ -25,10 +25,9 @@ namespace SquadGameLib.StatusEffects
         {
             this.Affected = affected;
             this.RemainingTime = remainingTime;
-            this.EvasionDeBuff = 30;
-            this.AttackDeBuff = 15;
+            this.EvasionDeBuff = 22;
+            this.AttackDeBuff = 12;
             Applied = false;
-            Effect();
         }
 
         public void Effect()

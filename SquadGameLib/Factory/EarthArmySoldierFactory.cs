@@ -17,27 +17,27 @@ namespace SquadGameLib.Factory
 
         public Unit CreateBasicSoldier()
         {
-            throw new NotImplementedException();
+            return new Trooper();
         }
 
         public Unit CreateHeavySoldier()
         {
-            throw new NotImplementedException();
+            return new HeavyGunner();
         }
 
         public Unit CreateMedicSoldier()
         {
-            throw new NotImplementedException();
+            return new Medic();
         }
 
         public Unit CreateScout()
         {
-            throw new NotImplementedException();
+            return new Sniper();
         }
 
         public Unit CreateTechSoldier()
         {
-            throw new NotImplementedException();
+            return new SpecialOps();
         }
     }
 }

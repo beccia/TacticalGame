@@ -12,7 +12,7 @@ namespace SquadGameLib.Units.Aliens
     public class Grunt : Unit
     {
         private const string className = "Grunt";
-        public Grunt() : this("Nameless grunt")
+        public Grunt() : this("")
         {
         }
 
@@ -23,9 +23,9 @@ namespace SquadGameLib.Units.Aliens
             this.MaxHp = (int)(BaseStats * 1.09);
             this.Hp = MaxHp;
             this.AttackPower = (int)(BaseStats * 1.04);
-            this.Defence = (int)(BaseStats * 0.72);
+            this.Defence = (int)(BaseStats * 0.73);
             this.Aim = (int)(BaseStats * 0.91);
-            this.Evasion = (int)(BaseStats / 2.09);
+            this.Evasion = (int)(BaseStats / 2.11);
             this.Speed = (int)(BaseStats * 0.98);
             this.CritChance = BaseStats / 14;
             this.Assigned = null;

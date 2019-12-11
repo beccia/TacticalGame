@@ -12,7 +12,7 @@ namespace SquadGameLib.Units.Aliens
     public class Annihilator : Unit
     {
         private const string className = "Annihilator"; 
-        public Annihilator() : this("Nameless Annihilator")
+        public Annihilator() : this("")
         {
         }
 
@@ -22,7 +22,7 @@ namespace SquadGameLib.Units.Aliens
             this.Name = name;
             this.MaxHp = (int)(BaseStats * 1.34);
             this.Hp = MaxHp;
-            this.AttackPower = (int)(BaseStats * 1.28);
+            this.AttackPower = (int)(BaseStats * 1.29);
             this.Defence = (int)(BaseStats * 0.76);
             this.Aim = (int)(BaseStats * 0.81);
             this.Evasion = (int)(BaseStats / 3.2);

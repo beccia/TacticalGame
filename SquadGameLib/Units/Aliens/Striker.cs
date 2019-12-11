@@ -12,7 +12,7 @@ namespace SquadGameLib.Units.Aliens
     public class Striker : Unit
     {
         private const string className = "Striker";
-        public Striker() : this("Unnamed Striker")
+        public Striker() : this("")
         {
 
         }

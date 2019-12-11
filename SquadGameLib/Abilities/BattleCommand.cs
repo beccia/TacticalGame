@@ -44,9 +44,9 @@ namespace SquadGameLib.Abilities
                 {
                     var @switch = new Dictionary<Type, Action>
                     {
-                        {typeof(Grunt), () => u.AddStatusEffect(new CooldownBonus(u, statusEffectsDuration, new Rush()))},
-                        {typeof(Annihilator), () => u.AddStatusEffect(new CooldownBonus(u, statusEffectsDuration, new AnnihilationBeam()))},
-                        {typeof(Striker), () => u.AddStatusEffect(new CooldownBonus(u, statusEffectsDuration, new OrbitalStrike()))},
+                        {typeof(Grunt), () => u.AddStatusEffect(new CooldownBonus(statusEffectsDuration, new Rush()))},
+                        {typeof(Annihilator), () => u.AddStatusEffect(new CooldownBonus(statusEffectsDuration, new AnnihilationBeam()))},
+                        {typeof(Striker), () => u.AddStatusEffect(new CooldownBonus(statusEffectsDuration, new OrbitalStrike()))},
                     };
                     if (@switch.ContainsKey(u.GetType()))
                     {

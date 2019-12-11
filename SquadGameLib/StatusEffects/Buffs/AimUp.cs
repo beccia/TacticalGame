@@ -14,13 +14,11 @@ namespace SquadGameLib.StatusEffects
         private bool Applied;
 
 
-        public AimUp(Unit affected, int remainingTime, int aimBuff)
+        public AimUp(int remainingTime, int aimBuff)
         {
-            this.Affected = affected;
             this.RemainingTime = remainingTime;
             this.AimBuff = aimBuff;
             Applied = false;
-            Effect();
         }
 
         public void Effect()

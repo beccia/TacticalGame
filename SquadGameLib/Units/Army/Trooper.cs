@@ -16,7 +16,7 @@ namespace SquadGameLib.Units.Army
         public int MinHealRoll { get; private set; }
         public int MaxHealRoll { get; private set; }
 
-        public Trooper() : this("Nameless Trooper")
+        public Trooper() : this("")
         { 
         }
 
@@ -29,7 +29,7 @@ namespace SquadGameLib.Units.Army
             this.AttackPower = this.Defence = (int)(BaseStats * 0.98);
             this.Defence = (int)(BaseStats * 0.68);
             this.Aim = BaseStats;
-            this.Evasion = (int)(BaseStats / 1.96);
+            this.Evasion = (int)(BaseStats / 1.92);
             this.Speed = (int)(BaseStats * 1.09);
             this.CritChance = BaseStats / 12;
             this.Assigned = null;

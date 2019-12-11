@@ -1,5 +1,6 @@
 ﻿using SquadGameLib;
 using SquadGameLib.Controller;
+using SquadGameLib.Enums;
 using SquadGameLib.units;
 using SquadGameLib.Units.Army;
 using System;
@@ -15,21 +16,20 @@ namespace GameProject
         static void Main(string[] args)
         {
             //for test phase: initialize game & player
-            GameController gameController = new GameController(4);
             Player player = new Player();
+         //TODO: prompt for name & Squad here 
 
-            //for test phase: setup player squad & 1st enemysquad (default parameter = level 1)
-            gameController.CreatePlayerSquad(player);
+            GameController gameController = new GameController(4, player);
 
-            // for test phase:  remove 1st tooper and add medic
-            player.PlayerSquad[0].UnAssign(player.PlayerSquad);
-            HeavyGunner medic1 = new HeavyGunner("Doc");
-            medic1.AssignToSquad(player.PlayerSquad);
+            
+            //player.PlayerSquad = gameController.CreateSquad(Faction.EarthForces, player.Level);
+            gameController.PlayerChooseYourSquad();
+
+
+
+            Squad enemySquad = gameController.CreateSquad(Faction.Aliens, player.Level);
 
             Console.WriteLine(player.PlayerSquad.ToString());
-
-            //Change enemy squad level  here (the argument of CreateEnemySquad, see GameController)
-            Squad enemySquad = gameController.CreateEnemySquad(6);
             Console.WriteLine(enemySquad.ToString());
             Console.WriteLine("---------------------Squads ready!------------------------------\n");
 
@@ -37,7 +37,8 @@ namespace GameProject
 
             //initizalize battle, insert enemy strategy array in BattleController constructor
             int[] basicAiPattern = new int[] { 0, 2, 0, 0, 2 };
-            int[] tacticalAiPattern = new int[] { 1, 2, 0, 0, 1, 2, 0 };
+            int[] tacticalAiPattern = new int[] { 1, 0, 2, 1, 0, 0, 2};
+            int[] carefulAiPattern = new int[] { 1, 2, 0, 2, 1, 2, 0};
 
             BattleController b1 = new BattleController(player.PlayerSquad, enemySquad, tacticalAiPattern);
 

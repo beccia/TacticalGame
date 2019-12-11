@@ -7,38 +7,36 @@ using System.Threading.Tasks;
 
 namespace SquadGameLib.StatusEffects
 {
-    public class CritChanceUp : IStatusEffect
+    public class AttackUp : IStatusEffect
     {
         public Unit Affected { get; set; }
         public int RemainingTime { get; set; }
-        public int CritChanceBuff { get; private set; }
+        public int AttackBuff { get; private set; }
 
         private bool Applied;
 
 
-        public CritChanceUp(Unit affected, int remainingTime, int critChanceBuff)
+        public AttackUp(int remainingTime, int attackBuff)
         {
-            this.Affected = affected;
             this.RemainingTime = remainingTime;
-            this.CritChanceBuff = critChanceBuff;
+            this.AttackBuff = attackBuff;
             Applied = false;
-            Effect();
         }
 
         public void Effect()
         {
             if (!Applied)
             {
-                Affected.CritChance += CritChanceBuff;
+                Affected.AttackPower += AttackBuff;
                 Applied = true;
-                Console.WriteLine($"{Affected.Name}'s ability to land critical hits has increased.");
+                Console.WriteLine($"{Affected.Name}'s attack power went up.");
             }
         }
 
         public void Undo()
         {
-            Console.Write(Affected.Hp > 0 ? $"\n{Affected.Name}'s enhanced critical hit chance ended." : "");
-            Affected.CritChance -= CritChanceBuff;
+            Console.Write(Affected.Hp > 0 ? $"\n{Affected.Name}'s offensive boost wore off." : "");
+            Affected.AttackPower-= AttackBuff;
             this.Affected = null;
         }
     }

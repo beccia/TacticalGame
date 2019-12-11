@@ -19,9 +19,7 @@ namespace SquadGameLib.Controller
         public int Round { get; private set; }
         public bool Ended { get; private set; }
         private  int[] AiSquadStrategies { get; set; }
-
         public delegate void DoAction(Unit target);
-
 
         public BattleController(Squad playerSquad, Squad enemySquad)
         {
@@ -53,12 +51,7 @@ namespace SquadGameLib.Controller
             {
                 BattleOrder = new BattleOrder(PlayerSquad, AiSquad);
 
-                Console.WriteLine($"\nSet stratgy for round nr {Round} using the numbered keys: ");
-                Console.Write(" 1 = Offensive , \n 2 = Tactical, \n 3 = Survival \n 4 =  StrongestFirst, \n 5 = WeakestFirst");
-                Console.WriteLine();
-
-                int choice = Convert.ToInt32(Console.ReadLine()) - 1;
-                PlayerSquad.Strategy = (Strategy)choice;
+                PromptStrategySelection();
 
                 Console.WriteLine("-----------------------------------------------");
                 Console.WriteLine($"Battle round {Round}:");
@@ -79,7 +72,6 @@ namespace SquadGameLib.Controller
             return playerWon;
         }
 
-        
         public void ExecuteRound(BattleOrder CombatActions)
         {
             bool unitSpeedChanged = false;
@@ -109,7 +101,6 @@ namespace SquadGameLib.Controller
             Console.WriteLine("\nEnded fighting of round " + Round + ".");
             Console.WriteLine("-------------------------------------");
    
-
             PlayerSquad.EndOfRoundActions();
             AiSquad.EndOfRoundActions();
         }
@@ -181,7 +172,6 @@ namespace SquadGameLib.Controller
             }
         }
 
-
         public Unit GetTarget(Unit unit, Strategy strategy)
         {
             Squad enemySquad = AiSquad;
@@ -229,8 +219,17 @@ namespace SquadGameLib.Controller
                     target = unit;
                     break;
             }
-
             return target;
+        }
+
+        public void PromptStrategySelection()
+        {
+            Console.WriteLine($"\nSet stratgy for round nr {Round} using the numbered keys: ");
+            Console.Write(" 1 = Offensive, \n 2 = Tactical, \n 3 = Survival \n 4 =  StrongestFirst, \n 5 = WeakestFirst");
+            Console.WriteLine();
+
+            int choice = Convert.ToInt32(Console.ReadLine()) - 1;
+            PlayerSquad.Strategy = (Strategy)choice;
         }
     }
 }

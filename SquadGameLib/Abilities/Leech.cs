@@ -40,7 +40,7 @@ namespace SquadGameLib.Abilities
             }
             else
             {
-                leechTarget.AddStatusEffect(new Leeched(leechTarget, (Shaman)actor, statusEffectsDuration));
+                leechTarget.AddStatusEffect(new Leeched((Shaman)actor, statusEffectsDuration));
             }
             this.CooldownCount = this.CooldownTime;
         }

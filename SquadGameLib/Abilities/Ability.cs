@@ -48,7 +48,7 @@ namespace SquadGameLib.Abilities
 
         public override string ToString()
         {
-            return $"---------------\n{this.Name}\nCooldown time: {this.CooldownTime}\nType: {this.Type.ToString()}\nDescription: {this.Description}";
+            return $"---------------\n* {this.Name}\nCooldown time: {this.CooldownTime}\nType: {this.Type.ToString()}\nDescription: {this.Description}";
         }
     }
 }

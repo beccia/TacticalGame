@@ -19,13 +19,11 @@ namespace SquadGameLib.StatusEffects
         private bool Applied;
 
 
-        public Leeched(Unit affected, Shaman afflictor, int remainingTime)
+        public Leeched(Shaman afflictor, int remainingTime)
         {
-            this.Affected = affected;
             this.Afflictor = afflictor;
             this.RemainingTime = remainingTime;
             Applied = false;
-            Effect();
         }
 
         public void Effect()

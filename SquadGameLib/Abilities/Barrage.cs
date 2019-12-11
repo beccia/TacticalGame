@@ -11,6 +11,7 @@ namespace SquadGameLib.Abilities
     {
         private const string description = "Deal multiple attacks spread over the entire enemy squad.";
         private const int defaultCooldownTime = 4;
+        private const int cooldownCountStart = 1;
 
         public Barrage() : this(false)
         {
@@ -18,6 +19,7 @@ namespace SquadGameLib.Abilities
 
         public Barrage(bool isPreferred) : base("Barrage", defaultCooldownTime)
         {
+            this.CooldownCount = cooldownCountStart;
             this.Description = description;
             this.IsPreferred = isPreferred;
             this.Type = Enums.AbilityType.Offensive;

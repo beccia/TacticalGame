@@ -51,14 +51,17 @@
   <ItemGroup>
     <Compile Include="Abilities\AbilityList.cs" />
     <Compile Include="Abilities\Ability.cs" />
+    <Compile Include="Abilities\Assassination.cs" />
     <Compile Include="Abilities\Barrage.cs" />
     <Compile Include="Abilities\BattleCommand.cs" />
+    <Compile Include="Abilities\Camouflage.cs" />
     <Compile Include="Abilities\CoveringFire.cs" />
     <Compile Include="Abilities\DroneStrike.cs" />
     <Compile Include="Abilities\AnnihilationBeam.cs" />
     <Compile Include="Abilities\Grenade.cs" />
     <Compile Include="Abilities\Leech.cs" />
     <Compile Include="Abilities\MinionShield.cs" />
+    <Compile Include="Abilities\MistScreen.cs" />
     <Compile Include="Abilities\OrbitalStrike.cs" />
     <Compile Include="Abilities\Rush.cs" />
     <Compile Include="Abilities\SummonMinions.cs" />
@@ -77,13 +80,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Factory\ISoldierFactory.cs" />
     <Compile Include="Squad.cs" />
-    <Compile Include="StatusEffects\AimUp.cs" />
-    <Compile Include="StatusEffects\AttackUp.cs" />
-    <Compile Include="StatusEffects\CooldownBonus.cs" />
-    <Compile Include="StatusEffects\CritChanceUp.cs" />
+    <Compile Include="StatusEffects\Buffs\AimUp.cs" />
+    <Compile Include="StatusEffects\Buffs\AttackUp.cs" />
+    <Compile Include="StatusEffects\Buffs\CooldownBonus.cs" />
+    <Compile Include="StatusEffects\Buffs\CritChanceUp.cs" />
+    <Compile Include="StatusEffects\Buffs\DefenceUp.cs" />
     <Compile Include="StatusEffects\Dead.cs" />
     <Compile Include="StatusEffects\Down.cs" />
     <Compile Include="StatusEffects\DroneInAir.cs" />
+    <Compile Include="StatusEffects\Buffs\EvasionUp.cs" />
     <Compile Include="StatusEffects\Exposed.cs" />
     <Compile Include="StatusEffects\IStatusEffect.cs" />
     <Compile Include="StatusEffects\Leeched.cs" />

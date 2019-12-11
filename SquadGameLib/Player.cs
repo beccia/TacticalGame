@@ -11,20 +11,20 @@ namespace SquadGameLib
     {
         public string Name { get; private set; }
         public Faction Faction { get; private set; }
-        public Squad PlayerSquad { get; private set; }
+        public Squad PlayerSquad { get; set; }
+        public int Level { get; set; }
 
-        public Player()
+        public Player() : this("Player 1", Faction.EarthForces, new Squad("Player's squad"))
         {
-            Name = "Player 1";
-            Faction = Faction.EarthForces;
-            PlayerSquad = new Squad("Player's squad");
         }
 
         public Player(string name, Faction faction, Squad playerSquad)
         {
+            this.Level = 1;
             this.Name = name;
             this.Faction = faction;
             this.PlayerSquad = playerSquad;
         }
+
     }
 }

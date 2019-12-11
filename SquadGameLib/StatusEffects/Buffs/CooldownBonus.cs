@@ -18,13 +18,11 @@ namespace SquadGameLib.StatusEffects
         private bool Applied;
 
 
-        public CooldownBonus(Unit affected, int remainingTime, Ability targetAbility)
+        public CooldownBonus(int remainingTime, Ability targetAbility)
         {
-            this.Affected = affected;
             this.RemainingTime = remainingTime;
             this.TargetAbility = targetAbility;
             Applied = false;
-            Effect();
         }
 
         public void Effect()

@@ -65,7 +65,7 @@ namespace SquadGameLib.Units.Aliens
             }
         }
 
-        public BattleLord() : this("unnamed BattleLord")
+        public BattleLord() : this("")
         {
 
         }

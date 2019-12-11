@@ -13,12 +13,10 @@ namespace SquadGameLib
     public class Squad : List<Unit>
     {
         public String Name { get; private set; }
-
         public Strategy Strategy { get; set; }
 
         public Squad()
         {
-
         }
 
         public Squad(string name)
@@ -98,7 +96,6 @@ namespace SquadGameLib
             }
         }
         
-
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

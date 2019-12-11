@@ -11,12 +11,12 @@ namespace UnitTests
         [TestMethod]
         public void RunSimpleBattle()
         {
-            
-            GameController gameController = new GameController(4);
             Player player = new Player();
+            GameController gameController = new GameController(4, player);
 
-            gameController.CreatePlayerSquad(player);
-            Squad enemySquad = gameController.CreateEnemySquad();
+
+            gameController.CreateSquad(SquadGameLib.Enums.Faction.EarthForces);
+            Squad enemySquad = gameController.CreateSquad(SquadGameLib.Enums.Faction.Aliens);
 
             BattleController battleController = new BattleController(player.PlayerSquad, enemySquad );
 

@@ -1,4 +1,5 @@
-﻿using SquadGameLib.units;
+﻿using SquadGameLib.Enums;
+using SquadGameLib.units;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,10 +18,16 @@ namespace SquadGameLib.Factory
 
         }
 
-        public ISoldierFactory<Unit> CreateFactory(ISoldierFactory<Unit> factory)
+        public ISoldierFactory<Unit> CreateFactory(Faction faction)
         {
-            this.Factory = factory;
-            return factory;
+            if (faction == Faction.EarthForces) {
+                this.Factory = new EarthArmySoldierFactory();
+            } 
+            else
+            {
+                this.Factory = new AlienSoldierFactory();
+            }
+            return this.Factory;
         }
 
         public static FactoryDirector GetInstanceOf()
@@ -31,7 +38,8 @@ namespace SquadGameLib.Factory
             } 
             else
             {
-                return new FactoryDirector();
+                _FactoryDirector = new FactoryDirector();
+                return _FactoryDirector;
             }
         }
     }

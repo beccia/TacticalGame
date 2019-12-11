@@ -25,7 +25,6 @@ namespace SquadGameLib.StatusEffects
             this.HealBuff = 24;
             this.DefenceBuff = 19;
             Applied = false;
-            Effect();
         }
 
         public void Effect()

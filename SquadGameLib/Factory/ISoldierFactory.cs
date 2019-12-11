@@ -9,8 +9,6 @@ namespace SquadGameLib
 {
     public interface ISoldierFactory<Unit>
     {
-
-
         Unit Create();
         Unit CreateBasicSoldier();
         Unit CreateHeavySoldier();

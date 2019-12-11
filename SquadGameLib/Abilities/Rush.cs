@@ -17,19 +17,19 @@ namespace SquadGameLib.Abilities
     {
         private const string description = "A risky offensive rush attack. Increases aim & attack power, adds chance of free attack in turn but lowers evasion & defence.";
         private const int defaultCooldownTime = 3;
-        private const int chanceForExtraAttack = 38;
+        private const int chanceForExtraAttack = 39;
         private const int statusEffectsDuration = 2;
         private const int aimBuff = 18;
         private const int attackBuff = 26;
         private const int evasionDebuff = 17;
-        private const int defenceDebuff = 19;
+        private const int defenceDebuff = 18;
 
         public Rush() : this(false)
         {
             this.Type = Enums.AbilityType.Offensive;
         }
 
-        public Rush(bool isPreferred) : base("Rush attack", defaultCooldownTime)
+        public Rush(bool isPreferred) : base("Rush Attack", defaultCooldownTime)
         {
             this.Description = description;
             this.IsPreferred = isPreferred;
@@ -39,10 +39,9 @@ namespace SquadGameLib.Abilities
         public override void Use(Unit actor, Unit target)
         {
             Console.WriteLine($"\n{actor.Name} uses {this.Name} and  charges straight at the enemy with an all-out offensive rush.");
-            // numbers inserted are buff/debuff modifyers, still need to be balanced
-            actor.AddStatusEffect(new AttackUp(actor, statusEffectsDuration, attackBuff));
-            actor.AddStatusEffect(new AimUp(actor, statusEffectsDuration, aimBuff));
-            actor.AddStatusEffect(new Exposed(actor, statusEffectsDuration, evasionDebuff, defenceDebuff));
+            actor.AddStatusEffect(new AttackUp(statusEffectsDuration, attackBuff));
+            actor.AddStatusEffect(new AimUp(statusEffectsDuration, aimBuff));
+            actor.AddStatusEffect(new Exposed(statusEffectsDuration, evasionDebuff, defenceDebuff));
 
             actor.Attack(target);
             if (RollForExtraAttack(chanceForExtraAttack))

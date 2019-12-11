@@ -22,20 +22,18 @@ namespace SquadGameLib.StatusEffects
         private bool Applied;
 
 
-        public Exposed(Unit affected, int remainingTime, int evasionDebuff, int defenceDebuff)
+        public Exposed(int remainingTime, int evasionDebuff, int defenceDebuff)
         {
-            this.Affected = affected;
             this.RemainingTime = remainingTime;
             this.EvasionDebuff = evasionDebuff;
             this.DefenceDebuff = defenceDebuff;
             Applied = false;
-            Effect();
-            Console.WriteLine($"{Affected.Name} is exposed, out of cover and more vulnerable to enemy attacks.");
         }
 
         public void Effect()
         {
             if (!Applied) {
+                Console.WriteLine($"{Affected.Name} is exposed, out of cover and more vulnerable to enemy attacks.");
                 Affected.Evasion -= EvasionDebuff;
                 Affected.Defence -= DefenceDebuff;
                 Applied = true;

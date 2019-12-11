@@ -35,7 +35,7 @@ namespace SquadGameLib.Abilities
             foreach (Unit u in target.Assigned.GetViableTargets())
             {
                 if (EnemySuppressed()) {
-                    u.AddStatusEffect(new Suppressed(u, statusEffectsDuration, aimDebuff, attackDebuff, critChanceDebuff));
+                    u.AddStatusEffect(new Suppressed(statusEffectsDuration, aimDebuff, attackDebuff, critChanceDebuff));
                 }
             }
             this.CooldownTime = this.CooldownTime;

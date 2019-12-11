@@ -19,7 +19,7 @@ namespace SquadGameLib.Units.Aliens
         private int MaxHealRoll { get; set; }
         private int ReviveChance { get; set; }
 
-        public Shaman() : this("Nameless Shaman")
+        public Shaman() : this("")
         {
         }
 
@@ -27,7 +27,7 @@ namespace SquadGameLib.Units.Aliens
         {
             this.ClassName = className; 
             this.Name = name;
-            this.MaxHp = (int)(BaseStats * 0.85);
+            this.MaxHp = (int)(BaseStats * 0.87);
             this.Hp = MaxHp;
             this.AttackPower = (int)(BaseStats * 0.84);
             this.Defence = (int)(BaseStats * 0.62);
@@ -39,12 +39,13 @@ namespace SquadGameLib.Units.Aliens
             this.StatusEffects = new Status();
             this.Abilities = new AbilityList();
 
-            this.MedSkills = 38;
+            this.MedSkills = 40;
             this.MinHealRoll = 70;
-            this.MaxHealRoll = 126;
-            this.ReviveChance= 60;
+            this.MaxHealRoll = 133;
+            this.ReviveChance= 62;
 
-            this.AddAbility(new Leech(true)); ;
+            this.AddAbility(new Leech(true));
+            this.AddAbility(new MistScreen(true)); 
         }
 
         public override void Attack(Unit target)

@@ -18,7 +18,7 @@ namespace SquadGameLib.Units.Army
 
         public bool HasMedStation { get; set; }
 
-        public Medic() : this("Nameless Medic")
+        public Medic() : this("")
         {
         }
 
@@ -26,7 +26,7 @@ namespace SquadGameLib.Units.Army
         {
             this.ClassName = className;
             this.Name = name;
-            this.MaxHp = (int)(BaseStats * 0.85);
+            this.MaxHp = (int)(BaseStats * 0.84);
             this.Hp = MaxHp;
             this.AttackPower = (int)(BaseStats * 0.78);
             this.Defence = (int)(BaseStats * 0.6);
@@ -38,7 +38,7 @@ namespace SquadGameLib.Units.Army
             this.StatusEffects = new Status();
             this.Abilities = new AbilityList();
 
-            this.MedSkills = 25;
+            this.MedSkills = 27;
             this.MinHealRoll = 90;
             this.MaxHealRoll = 110;
         }
@@ -120,7 +120,7 @@ namespace SquadGameLib.Units.Army
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder($"{this.ClassName} {this.Name}\n");
+            StringBuilder sb = new StringBuilder($"\n{this.ClassName.ToUpper()} {this.Name}\n");
             sb.Append($"\nStats---- \n" +
                 $"HP: {this.Hp}\nAttack: {this.AttackPower}\nDefence: {this.Defence}\nAim: {this.Aim}\nEvasion: {this.Evasion}\nSpeed: {this.Speed}\nCrit Chance: {this.CritChance}\n");
             sb.Append("\nSpecial abilities:");
@@ -128,7 +128,7 @@ namespace SquadGameLib.Units.Army
             {
                 sb.Append($"\n{a.ToString()}");
             }
-            sb.Append($"-------------- -\nBuild Medical station\nCooldown time: none\nType: Tactical\nDescription: Builds a medstation which lasts several turns & improves healing capabilities & defence.");
+            sb.Append($"-------------- -\n*Build Medical station\nCooldown time: none\nType: Tactical\nDescription: Builds a medstation which lasts several turns & improves healing capabilities & defence.");
             return sb.ToString();
         }
     }

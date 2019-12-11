@@ -25,7 +25,7 @@ namespace SquadGameLib.Abilities
 
         public override void Use(Unit actor, Unit target)
         {
-            Console.WriteLine($"\n{actor.Name} uses {this.Name}. All enemy Grunts will protect him with their lives.");
+            Console.WriteLine($"\n{actor.Name} uses {this.Name}. All enemy Grunts will protect him with their lives.\n");
             ((BattleLord)actor).MinionGuards.Clear();
             List<Unit> availableUnits = actor.Assigned.GetViableTargets();
             foreach (Unit u in availableUnits)

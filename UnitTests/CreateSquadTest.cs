@@ -10,12 +10,12 @@ namespace UnitTests
         [TestMethod]
         public void DefaultSquadCreationTest()
         {
-            GameController gameController = new GameController(4);
             Player player = new Player();
+            GameController gameController = new GameController(4, player);
 
-            gameController.CreatePlayerSquad(player);
+            gameController.CreateSquad(SquadGameLib.Enums.Faction.EarthForces);
 
-            Squad enemySquad = gameController.CreateEnemySquad();
+            Squad enemySquad = gameController.CreateSquad(SquadGameLib.Enums.Faction.Aliens);
 
             Assert.AreEqual(gameController.PlayerSquadSize, player.PlayerSquad.Count);
             Assert.AreEqual(gameController.PlayerSquadSize, player.PlayerSquad.Count);

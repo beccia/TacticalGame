@@ -14,7 +14,7 @@ namespace SquadGameLib.Units.Army
         private const string className = "Special Ops";
         public bool DroneDeployed { get; set; }
 
-        public SpecialOps() : this("Nameless Spec Ops")
+        public SpecialOps() : this("")
         {
         }
 

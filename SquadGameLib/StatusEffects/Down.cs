@@ -28,7 +28,7 @@ namespace SquadGameLib.StatusEffects
 
         public void Effect()
         { 
-            Console.WriteLine(Affected.Name + " is lying wounded on the battlefield and needs medical attention fast.");
+            Console.WriteLine(Affected.Name + " is down and needs medical attention fast.");
         }
 
         public void Undo()

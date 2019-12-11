@@ -23,7 +23,6 @@ namespace SquadGameLib.Abilities
         public SupportDrone() : this(false)
         {}
 
-        //2nd argument is default cooldown Time
         public SupportDrone(bool isPreferred) : base("Support Drone", defaultCooldownTime)
         {
             this.Description = description;
@@ -36,8 +35,8 @@ namespace SquadGameLib.Abilities
             Console.WriteLine($"{actor.Name} launches a drone near {target.Name}'s position which spots enemies for the squad, allowing friendly units to hit tagets and score critical hits more easily.");
             foreach (Unit u in actor.Assigned.GetViableTargets())
             {
-                u.AddStatusEffect(new AimUp(u, statusEffectsDuration, aimBuff));
-                u.AddStatusEffect(new CritChanceUp(u, statusEffectsDuration, critChanceBuff));
+                u.AddStatusEffect(new AimUp(statusEffectsDuration, aimBuff));
+                u.AddStatusEffect(new CritChanceUp(statusEffectsDuration, critChanceBuff));
             }
             actor.AddStatusEffect(new DroneInAir(actor, 3));
             this.CooldownCount = this.CooldownTime;

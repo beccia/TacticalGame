@@ -11,10 +11,11 @@ namespace SquadGameLib.units
     public abstract class Unit
     {
         public readonly int BaseStats = 100;
+
         public const int minimumAttackDmg = 86;
         public const int maximumAttackDmg = 118;
-        public const int minimumCritDmg = 133;
-        public const int maximumCritDmg = 154;
+        public const int minimumCritDmg = 135;
+        public const int maximumCritDmg = 159;
         public const double evasionModifyer = 0.6;
 
         public string Name { get; set; }
@@ -87,7 +88,7 @@ namespace SquadGameLib.units
                 totalDamage = totalDamage < 0 ? 0 : totalDamage;
                 int criticalHitRollResult = CriticalHitDamage(totalDamage);
                 if (criticalHitRollResult <= 0) {
-                    Console.WriteLine("Hit target for " + totalDamage + " damage.\n");
+                    Console.WriteLine("Hit target for " + totalDamage + " damage.\n ");
                 } else
                 {
                     totalDamage = criticalHitRollResult;
@@ -165,7 +166,6 @@ namespace SquadGameLib.units
         {
             this.StatusEffects.ClearAll();
             this.AddStatusEffect(new Down(this));
-            Console.WriteLine($"{this.Name} is down and cannot fight anymore.\n");
         }
 
         public void AddStatusEffect(IStatusEffect statusEffect)
@@ -175,6 +175,7 @@ namespace SquadGameLib.units
             {
                 statusEffect.Affected = this;
             }
+            statusEffect.Effect();
         }
 
         public void AddAbility(Ability ability)
@@ -205,7 +206,7 @@ namespace SquadGameLib.units
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder($"{this.ClassName} {this.Name}\n");
+            StringBuilder sb = new StringBuilder($"\n{this.ClassName.ToUpper()} {this.Name}\n");
             sb.Append($"\nStats---- \n" +
                 $"HP: {this.Hp}\nAttack: {this.AttackPower}\nDefence: {this.Defence}\nAim: {this.Aim}\nEvasion: {this.Evasion}\nSpeed: {this.Speed}\nCrit Chance: {this.CritChance}\n");
             sb.Append("\nSpecial abilities:");
